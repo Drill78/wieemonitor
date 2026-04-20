@@ -1,0 +1,66 @@
+/* Tailwind v4：单 import 即可启用所有功能（必须放第一位） */
+@import "tailwindcss";
+
+/* Leaflet 默认样式（必须，否则地图瓦片定位错乱） */
+@import "leaflet/dist/leaflet.css";
+
+/* === 自定义样式：必须放在 @import "tailwindcss" 之后，避免 Tailwind 覆盖 === */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #0f172a;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+/* 让 leaflet 容器继承全局字体（默认是 Helvetica） */
+.leaflet-container {
+  font-family: inherit;
+}
+
+/* === Tooltip 样式 === */
+
+/* 通用 tooltip：稍大字号 + 留白 */
+.leaflet-tooltip {
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+/* 保护区专用 tooltip：更醒目 */
+.leaflet-tooltip.reserve-tooltip {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 14px;
+}
+
+/* 保护区永久标签（常显于形状中央） */
+.leaflet-tooltip.reserve-label {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  white-space: nowrap;
+}
+/* 去掉 tooltip 默认的方向小三角 */
+.leaflet-tooltip.reserve-label::before {
+  display: none;
+}
+
+/* zoom < 7 时整体隐藏（由 ReserveLayer 在 map 容器加 .low-zoom 控制） */
+.leaflet-container.low-zoom .reserve-label {
+  display: none;
+}

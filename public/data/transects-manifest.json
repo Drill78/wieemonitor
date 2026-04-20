@@ -1,0 +1,119 @@
+[
+  {
+    "id": "LS-19",
+    "name": "LS-19",
+    "reserve_code": "SXNR-06",
+    "reserve_name": "历山国家级自然保护区",
+    "match_type": "strict",
+    "match_distance_km": null,
+    "point_count": 394,
+    "distance_meters": 3991.46,
+    "elevation_min": 652.66,
+    "elevation_max": 938.57,
+    "elevation_gain": 379.63,
+    "elevation_loss": 134.68,
+    "start_point": {
+      "lng": 111.8735478,
+      "lat": 35.3630894
+    },
+    "end_point": {
+      "lng": 111.8984728,
+      "lat": 35.3734527
+    },
+    "bbox": [
+      111.8735478,
+      35.3630894,
+      111.8987072,
+      35.3735165
+    ],
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": null,
+    "extra": {
+      "pos_start_name": "历山风景区",
+      "pos_end_name": "历山风景区",
+      "track_tags": "徒步",
+      "creator": "_"
+    },
+    "source_file": "LS-19.kml",
+    "geojson_path": "/data/transects/LS-19.geojson"
+  },
+  {
+    "id": "LS-20",
+    "name": "LS-20",
+    "reserve_code": "SXNR-06",
+    "reserve_name": "历山国家级自然保护区",
+    "match_type": "approximate",
+    "match_distance_km": 1.065,
+    "point_count": 260,
+    "distance_meters": 2750.14,
+    "elevation_min": 664.58,
+    "elevation_max": 916.7,
+    "elevation_gain": 317.12,
+    "elevation_loss": 72.83,
+    "start_point": {
+      "lng": 111.8744915,
+      "lat": 35.3609835
+    },
+    "end_point": {
+      "lng": 111.897589,
+      "lat": 35.3604154
+    },
+    "bbox": [
+      111.8744915,
+      35.3604154,
+      111.897589,
+      35.3626706
+    ],
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": null,
+    "extra": {
+      "pos_start_name": "历山风景区",
+      "pos_end_name": "历山风景区",
+      "track_tags": "徒步",
+      "creator": "_"
+    },
+    "source_file": "LS-20.kml",
+    "geojson_path": "/data/transects/LS-20.geojson"
+  },
+  {
+    "id": "LS18",
+    "name": "LS18",
+    "reserve_code": "SXNR-06",
+    "reserve_name": "历山国家级自然保护区",
+    "match_type": "strict",
+    "match_distance_km": null,
+    "point_count": 433,
+    "distance_meters": 5494.65,
+    "elevation_min": 747.77,
+    "elevation_max": 864.98,
+    "elevation_gain": 111.23,
+    "elevation_loss": 194.5,
+    "start_point": {
+      "lng": 112.0003124,
+      "lat": 35.3643847
+    },
+    "end_point": {
+      "lng": 111.9843584,
+      "lat": 35.3496442
+    },
+    "bbox": [
+      111.9842372,
+      35.3424996,
+      112.0094795,
+      35.3645166
+    ],
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": null,
+    "extra": {
+      "pos_start_name": "舜峰农家乐",
+      "pos_end_name": "杨家河桥",
+      "track_tags": "徒步",
+      "creator": "zs_3410995"
+    },
+    "source_file": "LS18.kml",
+    "geojson_path": "/data/transects/LS18.geojson"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "name": "wieemonitor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "fetch:reserves": "node scripts/fetch-reserves.mjs",
+    "scan:transects": "node --env-file=.env.local scripts/scan-transects.mjs"
+  },
+  "dependencies": {
+    "@tmcw/togeojson": "^7.1.2",
+    "@turf/boolean-point-in-polygon": "^7.3.5",
+    "@turf/distance": "^7.3.5",
+    "@turf/helpers": "^7.3.5",
+    "@turf/nearest-point-on-line": "^7.3.5",
+    "@types/leaflet": "^1.9.21",
+    "@xmldom/xmldom": "^0.9.10",
+    "leaflet": "^1.9.4",
+    "next": "16.2.4",
+    "osmtogeojson": "^3.0.0-beta.5",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-leaflet": "^5.0.0",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
