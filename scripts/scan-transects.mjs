@@ -7,14 +7,11 @@
  * 用法：npm run scan:transects
  * 依赖 .env.local 提供 WIEEMONITOR_DATA_ROOT 环境变量。
  *
- * 归属判定：取每条样线的起点（和备用的终点），做 point-in-polygon；
- *          真实多边形从 public/geo/reserves/SXNR-XX.geojson 载入，
- *          SXNR-07 / 08 因为 OSM 没数据，用 centerLat/centerLng/radiusDeg
- *          构造近似圆形多边形（与前端 ReserveLayer 的占位圆保持一致）。
- *
- * ⚠️ 如果修改 8 个保护区的 code 或位置，请**同步更新**：
- *    - src/data/mock/reserves.ts
- *    - 本脚本下方的 RESERVES 数组
+ * 阶段 1.4 改动：保护区数据从 public/geo/reserves-registry.json 读取
+ *   （由 scan-reserves.mjs 从官方 shapefile 生成的 46 个保护区）。
+ *   归属时使用每个保护区的 merged.geojson（合并 MultiPolygon），
+ *   先严格 point-in-polygon（start/middle/end 任一点），失败再
+ *   approximate（≤ BUFFER_KM）。reserve_code 输出**新编码**（如 SXNR-N02）。
  */
 
 import fs from 'node:fs/promises';
@@ -26,27 +23,14 @@ import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import { point as turfPoint, lineString as turfLineString } from '@turf/helpers';
 
-// 说明：历山等保护区的 OSM 边界通常只含核心区/缓冲区，不含实验区。
-// 野外 KML 的起点常在"风景区/村口"（实验区甚至区外），因此引入 2km 容差。
-// 阶段 3 接入官方含实验区的 shapefile 后，可将 BUFFER_KM 调为 0。
-const BUFFER_KM = 2;
-
-// === 保护区元数据（与 src/data/mock/reserves.ts 保持一致） ===
-const RESERVES = [
-  { code: 'SXNR-01', name: '芦芽山国家级自然保护区',       centerLat: 38.75, centerLng: 111.95, radiusDeg: 0.15 },
-  { code: 'SXNR-02', name: '庞泉沟国家级自然保护区',       centerLat: 37.83, centerLng: 111.46, radiusDeg: 0.09 },
-  { code: 'SXNR-03', name: '黑茶山国家级自然保护区',       centerLat: 38.38, centerLng: 111.25, radiusDeg: 0.12 },
-  { code: 'SXNR-04', name: '五鹿山国家级自然保护区',       centerLat: 36.68, centerLng: 111.16, radiusDeg: 0.12 },
-  { code: 'SXNR-05', name: '灵空山国家级自然保护区',       centerLat: 36.65, centerLng: 112.18, radiusDeg: 0.09 },
-  { code: 'SXNR-06', name: '历山国家级自然保护区',         centerLat: 35.45, centerLng: 111.92, radiusDeg: 0.17 },
-  { code: 'SXNR-07', name: '太宽河国家级自然保护区',       centerLat: 35.28, centerLng: 111.65, radiusDeg: 0.10 },
-  { code: 'SXNR-08', name: '阳城蟒河猕猴国家级自然保护区', centerLat: 35.25, centerLng: 112.45, radiusDeg: 0.07 },
-];
+// 官方 shapefile 来源已含实验区/缓冲区，BUFFER_KM 仍保留兜底（边界数据
+// 偶尔会有切边或户外起点在边界外几米的情况）。改小了。
+const BUFFER_KM = 1;
 
 // 项目根目录 = 本脚本的上一级
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
-const GEO_RESERVES_DIR = path.join(PROJECT_ROOT, 'public/geo/reserves');
+const REGISTRY_PATH = path.join(PROJECT_ROOT, 'public/geo/reserves-registry.json');
 const OUT_TRANSECTS_DIR = path.join(PROJECT_ROOT, 'public/data/transects');
 const OUT_MANIFEST = path.join(PROJECT_ROOT, 'public/data/transects-manifest.json');
 const OUT_REPORT = path.join(PROJECT_ROOT, 'scripts/scan-transects-report.json');
@@ -119,48 +103,39 @@ function extractDocumentName(xmlDoc) {
   return null;
 }
 
-/** 构造近似圆形的 Feature（用于 SXNR-07/08 的占位） */
-function circlePolygonFeature(code, name, centerLat, centerLng, radiusDeg, segments = 32) {
-  const coords = [];
-  for (let i = 0; i <= segments; i++) {
-    const angle = (i / segments) * 2 * Math.PI;
-    const lng = centerLng + radiusDeg * Math.cos(angle);
-    const lat = centerLat + radiusDeg * Math.sin(angle);
-    coords.push([lng, lat]);
-  }
-  return {
-    type: 'Feature',
-    properties: { code, name, placeholder: true },
-    geometry: { type: 'Polygon', coordinates: [coords] },
-  };
-}
-
-/** 加载 8 个保护区的"用于判归属的"多边形 feature（真实 or 占位） */
+/** 加载 registry 里 46 个保护区的 merged.geojson（合并 MultiPolygon） */
 async function loadReservePolygons() {
+  const txt = await fs.readFile(REGISTRY_PATH, 'utf8');
+  const registry = JSON.parse(txt);
   const out = [];
-  for (const r of RESERVES) {
-    const realPath = path.join(GEO_RESERVES_DIR, `${r.code}.geojson`);
+  for (const r of registry.reserves) {
     let feature = null;
     try {
-      const txt = await fs.readFile(realPath, 'utf8');
-      const fc = JSON.parse(txt);
+      const mergedPath = path.join(
+        PROJECT_ROOT,
+        'public',
+        r.merged_geojson_path.replace(/^\/+/, ''),
+      );
+      const fc = JSON.parse(await fs.readFile(mergedPath, 'utf8'));
       const cand = fc.features?.find(
         (f) =>
           f.geometry &&
           (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'),
       );
       if (cand) feature = cand;
-    } catch {
-      // 文件不存在 → 用圆占位
+    } catch (e) {
+      console.log(`  [保护区] ${r.code} ${r.name_short} → 几何加载失败：${e.message}`);
     }
-    if (!feature) {
-      feature = circlePolygonFeature(r.code, r.name, r.centerLat, r.centerLng, r.radiusDeg);
-      console.log(`  [保护区] ${r.code} ${r.name} → 用占位圆`);
-    } else {
-      console.log(`  [保护区] ${r.code} ${r.name} → 真实多边形 (${feature.geometry.type})`);
-    }
-    out.push({ ...r, feature });
+    if (!feature) continue;
+    out.push({
+      code: r.code,
+      name: r.name_full,
+      name_short: r.name_short,
+      level: r.level,
+      feature,
+    });
   }
+  console.log(`  [保护区] 共载入 ${out.length} 个 (registry 总数 ${registry.reserves.length})`);
   return out;
 }
 

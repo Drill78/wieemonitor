@@ -1,9 +1,11 @@
 /**
  * 右侧滑出式 Sidebar。
  *
- * 阶段 1.1：样线数据卡片接入 manifest
- * 阶段 1.3：红外相机卡片接入 manifest（按保护区/样线统计数量 + 提示点 emoji）
- *           生物信息、声音数据仍是占位
+ * 阶段 1.4：保护区改用官方 shapefile（46 个），类型用 ReserveRegistryEntry。
+ *           头部显示：name_full + 级别 badge + 三区面积 + 总面积。
+ *
+ * - selectedReserve 为 null 时（点空地图/关闭）显示「地图设置」面板
+ * - 选中保护区后显示其详情 + 4 个数据模块卡片
  */
 
 'use client';
@@ -11,7 +13,8 @@
 import { useEffect, useState } from 'react';
 import type {
   CameraManifestEntry,
-  Reserve,
+  ReserveLevel,
+  ReserveRegistryEntry,
   TransectManifestEntry,
 } from '@/types';
 import {
@@ -22,19 +25,34 @@ import {
 } from '@/lib/transects';
 import { getCamerasByReserve, getCamerasByTransect } from '@/lib/cameras';
 
+// 保护区主题色（蓝色），用于 sidebar 列表项的"选中"高亮
+const RESERVE_TINT = '#3b82f6';
+
+export type DisplayMode = 'zones' | 'merged';
+
 interface SidebarProps {
-  reserve: Reserve | null;
+  reserve: ReserveRegistryEntry | null;
   selectedTransectId: string | null;
   onTransectSelect: (transect: TransectManifestEntry | null) => void;
   onDetailClick: (transect: TransectManifestEntry) => void;
   onClose: () => void;
+  // 地图设置（reserve 为 null 时显示设置面板）
+  displayMode: DisplayMode;
+  onDisplayModeChange: (mode: DisplayMode) => void;
+  levelFilter: Record<ReserveLevel, boolean>;
+  onLevelFilterChange: (level: ReserveLevel, enabled: boolean) => void;
 }
 
-// 仍是占位的两个模块（红外相机已上线 → 单独由 CamerasSection 渲染）
 const otherModules = [
   { title: '生物信息', stage: 4, hint: 'DNA 测序样本与鉴定结果' },
   { title: '声音数据', stage: 4, hint: '声学采样的音频与元数据' },
 ];
+
+const LEVEL_BADGE: Record<ReserveLevel, { label: string; cls: string }> = {
+  national: { label: '国家级', cls: 'bg-emerald-100 text-emerald-800' },
+  provincial: { label: '省级', cls: 'bg-blue-100 text-blue-800' },
+  other: { label: '其他', cls: 'bg-slate-200 text-slate-700' },
+};
 
 export default function Sidebar({
   reserve,
@@ -42,81 +60,157 @@ export default function Sidebar({
   onTransectSelect,
   onDetailClick,
   onClose,
+  displayMode,
+  onDisplayModeChange,
+  levelFilter,
+  onLevelFilterChange,
 }: SidebarProps) {
+  // 当没有选中保护区时，显示一个**常驻**的"地图设置"面板（不滑出）
+  // 选中保护区后才滑入。
   const isOpen = reserve !== null;
 
   return (
-    <aside
-      // z-[1000] 高于 Leaflet 的默认 pane（200~700），保证浮在地图上方
-      className={`absolute top-0 right-0 h-full w-[400px] bg-white shadow-2xl z-[1000] overflow-y-auto transform transition-transform duration-300 ease-out ${
-        isOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}
-      aria-hidden={!isOpen}
-    >
-      {reserve && (
-        <div className="p-6">
-          <div className="flex items-start justify-between gap-3 mb-4">
-            <h2 className="text-xl font-bold text-slate-900 leading-tight">
-              {reserve.name}
-            </h2>
-            <button
-              onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition shrink-0 -mt-1 -mr-2"
-              aria-label="关闭侧边栏"
-            >
-              <span className="text-2xl leading-none">×</span>
-            </button>
-          </div>
-
-          <div className="text-xs text-slate-500 mb-3 flex gap-3">
-            <span>编码：{reserve.code}</span>
-            <span>省份：{reserve.province}</span>
-          </div>
-
-          <p className="text-sm text-slate-700 leading-relaxed mb-2">
-            {reserve.description}
-          </p>
-
-          <p className="text-xs text-slate-500 mb-6">
-            {reserve.geojson_path
-              ? '边界数据来源：OpenStreetMap。部分保护区可能仅含核心区与缓冲区，面积小于官方公开数据。'
-              : '边界数据：占位圆，待补充官方 shapefile。'}
-          </p>
-
-          <div className="space-y-3">
-            <TransectsSection
-              reserve={reserve}
-              selectedTransectId={selectedTransectId}
-              onTransectSelect={onTransectSelect}
-              onDetailClick={onDetailClick}
-            />
-
-            <CamerasSection
-              reserve={reserve}
-              selectedTransectId={selectedTransectId}
-            />
-
-            {otherModules.map((m) => (
-              <div
-                key={m.title}
-                className="border border-slate-200 rounded-lg p-4 bg-slate-50/60"
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-semibold text-slate-800">{m.title}</span>
-                  <span className="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-600">
-                    阶段 {m.stage}
-                  </span>
-                </div>
-                <div className="text-xs text-slate-500 mb-2">{m.hint}</div>
-                <div className="text-xs text-slate-400 italic">
-                  模块开发中（阶段 {m.stage}）
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <>
+      {/* 地图设置面板（左下角小卡片，selectedReserve === null 时显示） */}
+      {!isOpen && (
+        <MapSettingsPanel
+          displayMode={displayMode}
+          onDisplayModeChange={onDisplayModeChange}
+          levelFilter={levelFilter}
+          onLevelFilterChange={onLevelFilterChange}
+        />
       )}
-    </aside>
+
+      <aside
+        className={`absolute top-0 right-0 h-full w-[400px] bg-white shadow-2xl z-[1000] overflow-y-auto transform transition-transform duration-300 ease-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        aria-hidden={!isOpen}
+      >
+        {reserve && (
+          <div className="p-6">
+            <ReserveHeader reserve={reserve} onClose={onClose} />
+            <ZonesAreaTable reserve={reserve} />
+            <p className="text-xs text-slate-500 mt-4 mb-6">
+              边界数据来源：山西省官方 shapefile（CGCS2000，按 WGS84 处理），含核心区/缓冲区/实验区。
+            </p>
+
+            <div className="space-y-3">
+              <TransectsSection
+                reserve={reserve}
+                selectedTransectId={selectedTransectId}
+                onTransectSelect={onTransectSelect}
+                onDetailClick={onDetailClick}
+              />
+
+              <CamerasSection
+                reserve={reserve}
+                selectedTransectId={selectedTransectId}
+              />
+
+              {otherModules.map((m) => (
+                <div
+                  key={m.title}
+                  className="border border-slate-200 rounded-lg p-4 bg-slate-50/60"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-semibold text-slate-800">
+                      {m.title}
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-600">
+                      阶段 {m.stage}
+                    </span>
+                  </div>
+                  <div className="text-xs text-slate-500 mb-2">{m.hint}</div>
+                  <div className="text-xs text-slate-400 italic">
+                    模块开发中（阶段 {m.stage}）
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </aside>
+    </>
+  );
+}
+
+// === 保护区头部 ===
+
+function ReserveHeader({
+  reserve,
+  onClose,
+}: {
+  reserve: ReserveRegistryEntry;
+  onClose: () => void;
+}) {
+  const badge = LEVEL_BADGE[reserve.level];
+  return (
+    <>
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <h2 className="text-xl font-bold text-slate-900 leading-tight">
+          {reserve.name_full}
+        </h2>
+        <button
+          onClick={onClose}
+          className="w-8 h-8 flex items-center justify-center rounded text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition shrink-0 -mt-1 -mr-2"
+          aria-label="关闭侧边栏"
+        >
+          <span className="text-2xl leading-none">×</span>
+        </button>
+      </div>
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        <span
+          className={`text-xs px-2 py-0.5 rounded-full font-medium ${badge.cls}`}
+        >
+          {badge.label}
+        </span>
+        <span className="text-xs text-slate-500">编码 {reserve.code}</span>
+        {reserve.legacy_code && (
+          <span className="text-xs text-slate-400">
+            （旧 {reserve.legacy_code}）
+          </span>
+        )}
+      </div>
+    </>
+  );
+}
+
+function ZonesAreaTable({ reserve }: { reserve: ReserveRegistryEntry }) {
+  const z = reserve.zones;
+  const rows: { label: string; km2: number | null; color: string }[] = [
+    { label: '核心区', km2: z.core?.area_km2 ?? null, color: '#1e40af' },
+    { label: '缓冲区', km2: z.buffer?.area_km2 ?? null, color: '#3b82f6' },
+    { label: '实验区', km2: z.experimental?.area_km2 ?? null, color: '#93c5fd' },
+  ];
+  return (
+    <div className="bg-slate-50/60 border border-slate-200 rounded-md p-3">
+      <div className="text-xs text-slate-500 mb-2">面积分区</div>
+      <div className="space-y-1">
+        {rows.map((r) => (
+          <div key={r.label} className="flex items-center justify-between text-sm">
+            <span className="flex items-center gap-2 text-slate-700">
+              <span
+                className="inline-block w-3 h-3 rounded-sm"
+                style={{ backgroundColor: r.color }}
+              />
+              {r.label}
+            </span>
+            <span className="font-mono text-slate-900">
+              {r.km2 != null ? `${r.km2.toFixed(1)} km²` : '—'}
+            </span>
+          </div>
+        ))}
+        <div className="flex items-center justify-between text-sm pt-1 mt-1 border-t border-slate-200">
+          <span className="text-slate-700 font-medium">合计</span>
+          <span className="font-mono font-semibold text-slate-900">
+            {reserve.area_km2_total != null
+              ? `${reserve.area_km2_total.toFixed(1)} km²`
+              : '—'}
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -128,7 +222,7 @@ function TransectsSection({
   onTransectSelect,
   onDetailClick,
 }: {
-  reserve: Reserve;
+  reserve: ReserveRegistryEntry;
   selectedTransectId: string | null;
   onTransectSelect: (transect: TransectManifestEntry | null) => void;
   onDetailClick: (transect: TransectManifestEntry) => void;
@@ -169,14 +263,10 @@ function TransectsSection({
         </div>
       )}
 
-      {error && (
-        <div className="text-xs text-rose-600">加载失败：{error}</div>
-      )}
+      {error && <div className="text-xs text-rose-600">加载失败：{error}</div>}
 
       {transects && transects.length === 0 && (
-        <div className="text-xs text-slate-400 italic">
-          该保护区暂无样线数据
-        </div>
+        <div className="text-xs text-slate-400 italic">该保护区暂无样线数据</div>
       )}
 
       {transects && transects.length > 0 && (
@@ -185,7 +275,6 @@ function TransectsSection({
             <TransectListItem
               key={t.id}
               transect={t}
-              reserveColor={reserve.color}
               selected={t.id === selectedTransectId}
               onSelect={() =>
                 onTransectSelect(t.id === selectedTransectId ? null : t)
@@ -201,13 +290,11 @@ function TransectsSection({
 
 function TransectListItem({
   transect,
-  reserveColor,
   selected,
   onSelect,
   onDetailClick,
 }: {
   transect: TransectManifestEntry;
-  reserveColor: string;
   selected: boolean;
   onSelect: () => void;
   onDetailClick: () => void;
@@ -218,11 +305,10 @@ function TransectListItem({
     onDetailClick();
   };
 
-  // 选中态：左边 3px 同色边 + 浅同色底
   const selectedStyle: React.CSSProperties = selected
     ? {
-        borderLeftColor: reserveColor,
-        backgroundColor: `${reserveColor}1A`, // hex + 1A ≈ 10% alpha
+        borderLeftColor: RESERVE_TINT,
+        backgroundColor: `${RESERVE_TINT}1A`, // 10% alpha
       }
     : {};
 
@@ -244,7 +330,8 @@ function TransectListItem({
         </div>
         <div className="mt-0.5 flex items-center justify-between gap-2 text-xs text-slate-500">
           <span>
-            {formatDateOnly(transect.start_time)} · {formatDuration(transect.duration_seconds)}
+            {formatDateOnly(transect.start_time)} ·{' '}
+            {formatDuration(transect.duration_seconds)}
           </span>
           <span className="flex items-center gap-2">
             {transect.match_type === 'approximate' && (
@@ -274,14 +361,13 @@ function CamerasSection({
   reserve,
   selectedTransectId,
 }: {
-  reserve: Reserve;
+  reserve: ReserveRegistryEntry;
   selectedTransectId: string | null;
 }) {
   const [reserveCount, setReserveCount] = useState<number | null>(null);
   const [transectCount, setTransectCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // 保护区维度的数量
   useEffect(() => {
     let cancelled = false;
     setReserveCount(null);
@@ -298,7 +384,6 @@ function CamerasSection({
     };
   }, [reserve.code]);
 
-  // 选中样线后再求该样线的数量
   useEffect(() => {
     if (!selectedTransectId) {
       setTransectCount(null);
@@ -326,9 +411,7 @@ function CamerasSection({
         </span>
       </div>
 
-      {error && (
-        <div className="text-xs text-rose-600">加载失败：{error}</div>
-      )}
+      {error && <div className="text-xs text-rose-600">加载失败：{error}</div>}
 
       {!error && (
         <>
@@ -355,6 +438,76 @@ function CamerasSection({
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+// === 地图设置面板（左下角浮窗，未选中保护区时显示） ===
+
+function MapSettingsPanel({
+  displayMode,
+  onDisplayModeChange,
+  levelFilter,
+  onLevelFilterChange,
+}: {
+  displayMode: DisplayMode;
+  onDisplayModeChange: (mode: DisplayMode) => void;
+  levelFilter: Record<ReserveLevel, boolean>;
+  onLevelFilterChange: (level: ReserveLevel, enabled: boolean) => void;
+}) {
+  return (
+    <div
+      className="absolute z-[900] left-4 bottom-12 bg-white/95 backdrop-blur rounded-lg shadow-md border border-slate-200 p-3 text-sm w-56"
+      // 给比例尺留点空间
+    >
+      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+        显示模式
+      </div>
+      <div className="flex flex-col gap-1 mb-3">
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="radio"
+            name="displayMode"
+            checked={displayMode === 'zones'}
+            onChange={() => onDisplayModeChange('zones')}
+            className="accent-emerald-700"
+          />
+          <span>三区分层</span>
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="radio"
+            name="displayMode"
+            checked={displayMode === 'merged'}
+            onChange={() => onDisplayModeChange('merged')}
+            className="accent-emerald-700"
+          />
+          <span>合并显示</span>
+        </label>
+      </div>
+
+      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+        级别筛选
+      </div>
+      <div className="flex flex-col gap-1">
+        {(['national', 'provincial', 'other'] as ReserveLevel[]).map((lv) => (
+          <label key={lv} className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={levelFilter[lv]}
+              onChange={(e) => onLevelFilterChange(lv, e.target.checked)}
+              className="accent-emerald-700"
+            />
+            <span>
+              <span
+                className={`inline-block px-1.5 py-0.5 rounded text-xs font-medium ${LEVEL_BADGE[lv].cls} mr-1`}
+              >
+                {LEVEL_BADGE[lv].label}
+              </span>
+            </span>
+          </label>
+        ))}
+      </div>
     </div>
   );
 }

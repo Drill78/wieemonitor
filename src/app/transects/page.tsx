@@ -17,19 +17,24 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import TransectDetailModal from '@/components/modules/TransectDetailModal';
-import { reserves } from '@/data/mock/reserves';
+import { loadReserves } from '@/lib/reserves';
 import {
   formatDateOnly,
   formatDistanceKm,
   formatDuration,
   loadTransectManifest,
 } from '@/lib/transects';
-import type { TransectManifestEntry } from '@/types';
+import type {
+  ReserveRegistryEntry,
+  TransectManifestEntry,
+} from '@/types';
 
 const UNASSIGNED_KEY = '__unassigned__';
+const RESERVE_TINT = '#3b82f6';
 
 export default function TransectsPage() {
   const [manifest, setManifest] = useState<TransectManifestEntry[] | null>(null);
+  const [reserves, setReserves] = useState<ReserveRegistryEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [detailTransect, setDetailTransect] =
@@ -39,6 +44,7 @@ export default function TransectsPage() {
     loadTransectManifest()
       .then((list) => setManifest(list))
       .catch((e) => setError(String(e)));
+    loadReserves().then(setReserves).catch(() => {});
   }, []);
 
   const filtered = useMemo(() => {
@@ -133,13 +139,12 @@ export default function TransectsPage() {
           const list = grouped.get(key)!;
           const reserve = reserves.find((r) => r.code === key);
           const groupName =
-            key === UNASSIGNED_KEY ? '未归属样线' : reserve?.name ?? key;
-          const colorDot = reserve?.color ?? '#94a3b8';
+            key === UNASSIGNED_KEY ? '未归属样线' : reserve?.name_full ?? key;
           return (
             <ReserveGroup
               key={key}
               groupName={groupName}
-              colorDot={colorDot}
+              colorDot={RESERVE_TINT}
               transects={list}
               reserveCode={key === UNASSIGNED_KEY ? null : key}
               onDetail={(t) => setDetailTransect(t)}
@@ -150,11 +155,7 @@ export default function TransectsPage() {
 
       <TransectDetailModal
         transect={detailTransect}
-        reserveColor={
-          detailTransect?.reserve_code
-            ? reserves.find((r) => r.code === detailTransect.reserve_code)?.color
-            : undefined
-        }
+        reserveColor={RESERVE_TINT}
         onClose={() => setDetailTransect(null)}
       />
     </div>

@@ -1,0 +1,1760 @@
+{
+  "generated_at": "2026-04-20T08:54:10.237Z",
+  "source": "山西省林草局 shapefile（CGCS2000，按 WGS84 处理）",
+  "count": 46,
+  "by_level": {
+    "national": 8,
+    "provincial": 35,
+    "other": 3
+  },
+  "reserves": [
+    {
+      "code": "SXPR-P34",
+      "legacy_code": null,
+      "name_full": "山西中央山省级自然保护区",
+      "name_short": "中央山",
+      "level": "provincial",
+      "center": {
+        "lng": 113.30935903787406,
+        "lat": 36.64780030777802
+      },
+      "bbox": [
+        113.17905580656915,
+        36.522204851682055,
+        113.45690048986305,
+        36.80201234772067
+      ],
+      "area_km2_total": 326.87,
+      "zones": {
+        "core": {
+          "area_km2": 107.662,
+          "feature_count": 1,
+          "official_area_ha": 10780.45
+        },
+        "buffer": {
+          "area_km2": 73.997,
+          "feature_count": 1,
+          "official_area_ha": 7409.6
+        },
+        "experimental": {
+          "area_km2": 145.211,
+          "feature_count": 1,
+          "official_area_ha": 14541.21
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P34.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P34.merged.geojson",
+      "source_file": "山西中央山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P31",
+      "legacy_code": null,
+      "name_full": "山西云中山省级自然保护区",
+      "name_short": "云中山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.3763712384664,
+        "lat": 38.45629067109807
+      },
+      "bbox": [
+        112.25895021472856,
+        38.274334753977115,
+        112.55961282199674,
+        38.68153092935542
+      ],
+      "area_km2_total": 489.712,
+      "zones": {
+        "core": {
+          "area_km2": 129.829,
+          "feature_count": 1,
+          "official_area_ha": 12996.58
+        },
+        "buffer": {
+          "area_km2": 114.047,
+          "feature_count": 1,
+          "official_area_ha": 11416.74
+        },
+        "experimental": {
+          "area_km2": 245.837,
+          "feature_count": 1,
+          "official_area_ha": 24611.14
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P31.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P31.merged.geojson",
+      "source_file": "山西云中山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P30",
+      "legacy_code": null,
+      "name_full": "山西云顶山省级自然保护区",
+      "name_short": "云顶山",
+      "level": "provincial",
+      "center": {
+        "lng": 111.63321861420364,
+        "lat": 37.93259141728672
+      },
+      "bbox": [
+        111.50931457289003,
+        37.84798175223843,
+        111.78323475371313,
+        38.03801431243657
+      ],
+      "area_km2_total": 231.024,
+      "zones": {
+        "core": {
+          "area_km2": 71.846,
+          "feature_count": 1,
+          "official_area_ha": 7189.33
+        },
+        "buffer": {
+          "area_km2": 38.765,
+          "feature_count": 1,
+          "official_area_ha": 3879.07
+        },
+        "experimental": {
+          "area_km2": 120.414,
+          "feature_count": 1,
+          "official_area_ha": 12049.33
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P30.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P30.merged.geojson",
+      "source_file": "山西云顶山省级自然保护区"
+    },
+    {
+      "code": "SXNR-N07",
+      "legacy_code": "SXNR-04",
+      "name_full": "山西五鹿山国家级自然保护区",
+      "name_short": "五鹿山",
+      "level": "national",
+      "center": {
+        "lng": 111.21088647972095,
+        "lat": 36.53297692837879
+      },
+      "bbox": [
+        111.14384319168275,
+        36.39825232010289,
+        111.29030505540962,
+        36.64067966232822
+      ],
+      "area_km2_total": 198.652,
+      "zones": {
+        "core": {
+          "area_km2": 74.927,
+          "feature_count": 2,
+          "official_area_ha": 7494.75
+        },
+        "buffer": {
+          "area_km2": 49.756,
+          "feature_count": 2,
+          "official_area_ha": 4977.02
+        },
+        "experimental": {
+          "area_km2": 73.969,
+          "feature_count": 2,
+          "official_area_ha": 7398.91
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N07.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N07.merged.geojson",
+      "source_file": "山西五鹿山国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P18",
+      "legacy_code": null,
+      "name_full": "山西人祖山省级自然保护区",
+      "name_short": "人祖山",
+      "level": "provincial",
+      "center": {
+        "lng": 110.62515747612284,
+        "lat": 36.2556752822294
+      },
+      "bbox": [
+        110.55351406964752,
+        36.16691931839963,
+        110.7372691540296,
+        36.32713875578642
+      ],
+      "area_km2_total": 173.123,
+      "zones": {
+        "core": {
+          "area_km2": 79.634,
+          "feature_count": 1,
+          "official_area_ha": 7965.24
+        },
+        "buffer": {
+          "area_km2": 32.725,
+          "feature_count": 1,
+          "official_area_ha": 3273.25
+        },
+        "experimental": {
+          "area_km2": 60.765,
+          "feature_count": 1,
+          "official_area_ha": 6077.91
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P18.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P18.merged.geojson",
+      "source_file": "山西人祖山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P01",
+      "legacy_code": null,
+      "name_full": "山西八缚岭省级自然保护区",
+      "name_short": "八缚岭",
+      "level": "provincial",
+      "center": {
+        "lng": 113.01104781501147,
+        "lat": 37.485131455390004
+      },
+      "bbox": [
+        112.89344932210942,
+        37.39476084318764,
+        113.08552207580246,
+        37.57176574911825
+      ],
+      "area_km2_total": 155.569,
+      "zones": {
+        "core": {
+          "area_km2": 71.256,
+          "feature_count": 1,
+          "official_area_ha": 7134.69
+        },
+        "buffer": {
+          "area_km2": 29.134,
+          "feature_count": 1,
+          "official_area_ha": 2917.13
+        },
+        "experimental": {
+          "area_km2": 55.179,
+          "feature_count": 1,
+          "official_area_ha": 5524.81
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P01.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P01.merged.geojson",
+      "source_file": "山西八缚岭省级自然保护区"
+    },
+    {
+      "code": "SXPR-P14",
+      "legacy_code": null,
+      "name_full": "山西六棱山省级自然保护区",
+      "name_short": "六棱山",
+      "level": "provincial",
+      "center": {
+        "lng": 113.79573803512288,
+        "lat": 39.88499940024488
+      },
+      "bbox": [
+        113.68122693450547,
+        39.83220224850141,
+        113.87978111957976,
+        39.93054826185872
+      ],
+      "area_km2_total": 119.705,
+      "zones": {
+        "core": {
+          "area_km2": 29.929,
+          "feature_count": 2,
+          "official_area_ha": 3000.2
+        },
+        "buffer": {
+          "area_km2": 36.575,
+          "feature_count": 1,
+          "official_area_ha": 3666.41
+        },
+        "experimental": {
+          "area_km2": 53.201,
+          "feature_count": 1,
+          "official_area_ha": 5333.08
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P14.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P14.merged.geojson",
+      "source_file": "山西六棱山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P13",
+      "legacy_code": null,
+      "name_full": "山西凌井沟省级自然保护区",
+      "name_short": "凌井沟",
+      "level": "provincial",
+      "center": {
+        "lng": 112.3646643311265,
+        "lat": 38.14979836330162
+      },
+      "bbox": [
+        112.23770323382396,
+        38.027585072004655,
+        112.47632051912576,
+        38.27597846886731
+      ],
+      "area_km2_total": 248.967,
+      "zones": {
+        "core": {
+          "area_km2": 105.053,
+          "feature_count": 2,
+          "official_area_ha": 10515.7
+        },
+        "buffer": {
+          "area_km2": 31.671,
+          "feature_count": 2,
+          "official_area_ha": 3170.22
+        },
+        "experimental": {
+          "area_km2": 112.243,
+          "feature_count": 1,
+          "official_area_ha": 11235.38
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P13.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P13.merged.geojson",
+      "source_file": "山西凌井沟省级自然保护区"
+    },
+    {
+      "code": "SXPR-P17",
+      "legacy_code": null,
+      "name_full": "山西南方红豆杉省级自然保护区",
+      "name_short": "南方红豆杉",
+      "level": "provincial",
+      "center": {
+        "lng": 113.44703733159493,
+        "lat": 35.59607926029006
+      },
+      "bbox": [
+        113.32946208944664,
+        35.49739365548064,
+        113.55120412991624,
+        35.6940057881857
+      ],
+      "area_km2_total": 235.453,
+      "zones": {
+        "core": {
+          "area_km2": 66.855,
+          "feature_count": 1,
+          "official_area_ha": 6693.97
+        },
+        "buffer": {
+          "area_km2": 64.084,
+          "feature_count": 1,
+          "official_area_ha": 6416.49
+        },
+        "experimental": {
+          "area_km2": 104.514,
+          "feature_count": 1,
+          "official_area_ha": 10464.62
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P17.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P17.merged.geojson",
+      "source_file": "山西南方红豆杉省级自然保护区"
+    },
+    {
+      "code": "SXNR-N02",
+      "legacy_code": "SXNR-06",
+      "name_full": "山西历山国家级自然保护区",
+      "name_short": "历山",
+      "level": "national",
+      "center": {
+        "lng": 111.97520342747869,
+        "lat": 35.37184468013944
+      },
+      "bbox": [
+        111.85379129525262,
+        35.27696642073713,
+        112.10100554566804,
+        35.456931408526096
+      ],
+      "area_km2_total": 241.438,
+      "zones": {
+        "core": {
+          "area_km2": 76.761,
+          "feature_count": 4,
+          "official_area_ha": 7677.56
+        },
+        "buffer": {
+          "area_km2": 27.712,
+          "feature_count": 4,
+          "official_area_ha": 2771.75
+        },
+        "experimental": {
+          "area_km2": 136.965,
+          "feature_count": 5,
+          "official_area_ha": 13699.47
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N02.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N02.merged.geojson",
+      "source_file": "山西历山国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P21",
+      "legacy_code": null,
+      "name_full": "山西四县垴省级自然保护区",
+      "name_short": "四县垴",
+      "level": "provincial",
+      "center": {
+        "lng": 112.60784306223957,
+        "lat": 37.186096333727654
+      },
+      "bbox": [
+        112.54621020899245,
+        37.07832406956377,
+        112.68219050104823,
+        37.2836159016386
+      ],
+      "area_km2_total": 157.491,
+      "zones": {
+        "core": {
+          "area_km2": 63.054,
+          "feature_count": 1,
+          "official_area_ha": 6311.23
+        },
+        "buffer": {
+          "area_km2": 37.668,
+          "feature_count": 1,
+          "official_area_ha": 3770.28
+        },
+        "experimental": {
+          "area_km2": 56.769,
+          "feature_count": 1,
+          "official_area_ha": 5682
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P21.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P21.merged.geojson",
+      "source_file": "山西四县垴省级自然保护区"
+    },
+    {
+      "code": "SXPR-P10",
+      "legacy_code": null,
+      "name_full": "山西壶流河省级自然保护区",
+      "name_short": "壶流河",
+      "level": "provincial",
+      "center": {
+        "lng": 114.34429802749284,
+        "lat": 39.685175382068536
+      },
+      "bbox": [
+        114.24438532713381,
+        39.63740913629815,
+        114.40314864274336,
+        39.77416149595917
+      ],
+      "area_km2_total": 124.043,
+      "zones": {
+        "core": {
+          "area_km2": 34.425,
+          "feature_count": 1,
+          "official_area_ha": 3452.86
+        },
+        "buffer": {
+          "area_km2": 24.591,
+          "feature_count": 1,
+          "official_area_ha": 2466.54
+        },
+        "experimental": {
+          "area_km2": 65.028,
+          "feature_count": 1,
+          "official_area_ha": 6522.17
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P10.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P10.merged.geojson",
+      "source_file": "山西壶流河省级自然保护区"
+    },
+    {
+      "code": "SXPR-P23",
+      "legacy_code": null,
+      "name_full": "山西天龙山省级自然保护区",
+      "name_short": "天龙山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.35723292302659,
+        "lat": 37.71750100691548
+      },
+      "bbox": [
+        112.31926226336657,
+        37.691538969153136,
+        112.40523727885463,
+        37.74291878606231
+      ],
+      "area_km2_total": 28.643,
+      "zones": {
+        "core": {
+          "area_km2": 5.871,
+          "feature_count": 1,
+          "official_area_ha": 587.6
+        },
+        "buffer": {
+          "area_km2": 3.7,
+          "feature_count": 1,
+          "official_area_ha": 370.3
+        },
+        "experimental": {
+          "area_km2": 19.073,
+          "feature_count": 1,
+          "official_area_ha": 1908.97
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P23.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P23.merged.geojson",
+      "source_file": "山西天龙山省级自然保护区"
+    },
+    {
+      "code": "SXNR-N06",
+      "legacy_code": "SXNR-07",
+      "name_full": "山西太宽河国家级自然保护区",
+      "name_short": "太宽河",
+      "level": "national",
+      "center": {
+        "lng": 111.44732538247506,
+        "lat": 35.04475573412982
+      },
+      "bbox": [
+        111.33362264294749,
+        34.95315509244136,
+        111.55464353586055,
+        35.22536072245707
+      ],
+      "area_km2_total": 242.773,
+      "zones": {
+        "core": {
+          "area_km2": 85.197,
+          "feature_count": 1,
+          "official_area_ha": 8519.55
+        },
+        "buffer": {
+          "area_km2": 71.592,
+          "feature_count": 7,
+          "official_area_ha": 7159.03
+        },
+        "experimental": {
+          "area_km2": 85.984,
+          "feature_count": 3,
+          "official_area_ha": 8598.31
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N06.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N06.merged.geojson",
+      "source_file": "山西太宽河国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P15",
+      "legacy_code": null,
+      "name_full": "山西孟信垴省级自然保护区",
+      "name_short": "孟信垴",
+      "level": "provincial",
+      "center": {
+        "lng": 113.54145646290686,
+        "lat": 37.10303797296711
+      },
+      "bbox": [
+        113.38289933779897,
+        36.88735986910532,
+        113.65711015423068,
+        37.20909781786652
+      ],
+      "area_km2_total": 350.091,
+      "zones": {
+        "core": {
+          "area_km2": 130.95,
+          "feature_count": 1,
+          "official_area_ha": 13116.6
+        },
+        "buffer": {
+          "area_km2": 58.066,
+          "feature_count": 1,
+          "official_area_ha": 5816.12
+        },
+        "experimental": {
+          "area_km2": 161.075,
+          "feature_count": 1,
+          "official_area_ha": 16133.07
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P15.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P15.merged.geojson",
+      "source_file": "山西孟信垴省级自然保护区"
+    },
+    {
+      "code": "SXPR-P27",
+      "legacy_code": null,
+      "name_full": "山西崦山省级自然保护区",
+      "name_short": "崦山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.40807452446865,
+        "lat": 35.62762072311551
+      },
+      "bbox": [
+        112.28012641551858,
+        35.57021674256431,
+        112.46696145068503,
+        35.687180681288154
+      ],
+      "area_km2_total": 89.22,
+      "zones": {
+        "core": {
+          "area_km2": 33.583,
+          "feature_count": 1,
+          "official_area_ha": 3359.85
+        },
+        "buffer": {
+          "area_km2": 23.839,
+          "feature_count": 1,
+          "official_area_ha": 2384.97
+        },
+        "experimental": {
+          "area_km2": 31.798,
+          "feature_count": 1,
+          "official_area_ha": 3181.26
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P27.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P27.merged.geojson",
+      "source_file": "山西崦山省级自然保护区"
+    },
+    {
+      "code": "SXNR-N05",
+      "legacy_code": "SXNR-02",
+      "name_full": "山西庞泉沟国家级自然保护区",
+      "name_short": "庞泉沟",
+      "level": "national",
+      "center": {
+        "lng": 111.44305021957973,
+        "lat": 37.870612979603216
+      },
+      "bbox": [
+        111.37520782798404,
+        37.795541041997076,
+        111.54240300916592,
+        37.92937862198505
+      ],
+      "area_km2_total": 105.112,
+      "zones": {
+        "core": {
+          "area_km2": 35.81,
+          "feature_count": 4,
+          "official_area_ha": 3583.17
+        },
+        "buffer": {
+          "area_km2": 10.596,
+          "feature_count": 2,
+          "official_area_ha": 1060.29
+        },
+        "experimental": {
+          "area_km2": 58.705,
+          "feature_count": 2,
+          "official_area_ha": 5874.13
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N05.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N05.merged.geojson",
+      "source_file": "山西庞泉沟国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P08",
+      "legacy_code": null,
+      "name_full": "山西恒山省级自然保护区",
+      "name_short": "恒山",
+      "level": "provincial",
+      "center": {
+        "lng": 113.65827832178425,
+        "lat": 39.57049037127852
+      },
+      "bbox": [
+        113.55725807408928,
+        39.50596355844687,
+        113.72909528824184,
+        39.64507562220987
+      ],
+      "area_km2_total": 117.381,
+      "zones": {
+        "core": {
+          "area_km2": 34.472,
+          "feature_count": 1,
+          "official_area_ha": 3454.97
+        },
+        "buffer": {
+          "area_km2": 34.758,
+          "feature_count": 1,
+          "official_area_ha": 3483.56
+        },
+        "experimental": {
+          "area_km2": 48.152,
+          "feature_count": 1,
+          "official_area_ha": 4825.95
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P08.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P08.merged.geojson",
+      "source_file": "山西恒山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P20",
+      "legacy_code": null,
+      "name_full": "山西朔州紫金山省级自然保护区",
+      "name_short": "朔州紫金山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.65186616774166,
+        "lat": 39.15048922022057
+      },
+      "bbox": [
+        112.53874651955134,
+        39.08546236356089,
+        112.75551457352864,
+        39.207566202005175
+      ],
+      "area_km2_total": 114.04,
+      "zones": {
+        "core": {
+          "area_km2": 35.051,
+          "feature_count": 2,
+          "official_area_ha": 3509.85
+        },
+        "buffer": {
+          "area_km2": 17.074,
+          "feature_count": 2,
+          "official_area_ha": 1709.75
+        },
+        "experimental": {
+          "area_km2": 61.915,
+          "feature_count": 1,
+          "official_area_ha": 6199.96
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P20.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P20.merged.geojson",
+      "source_file": "山西朔州紫金山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P19",
+      "legacy_code": null,
+      "name_full": "山西桑干河省级自然保护区",
+      "name_short": "桑干河",
+      "level": "provincial",
+      "center": {
+        "lng": 113.54283634782257,
+        "lat": 39.93694046507371
+      },
+      "bbox": [
+        112.36330069413151,
+        39.26672047475889,
+        113.97200530087007,
+        40.13295076416669
+      ],
+      "area_km2_total": 649.941,
+      "zones": {
+        "core": {
+          "area_km2": 181.294,
+          "feature_count": 7,
+          "official_area_ha": 18171.15
+        },
+        "buffer": {
+          "area_km2": 105.132,
+          "feature_count": 6,
+          "official_area_ha": 10537.36
+        },
+        "experimental": {
+          "area_km2": 363.515,
+          "feature_count": 10,
+          "official_area_ha": 36431.63
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P19.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P19.merged.geojson",
+      "source_file": "山西桑干河省级自然保护区"
+    },
+    {
+      "code": "SXPR-P04",
+      "legacy_code": null,
+      "name_full": "山西汾河上游省级自然保护区",
+      "name_short": "汾河上游",
+      "level": "provincial",
+      "center": {
+        "lng": 111.8504744883728,
+        "lat": 38.03780663923423
+      },
+      "bbox": [
+        111.50870394487788,
+        37.885211114967106,
+        112.04144288076233,
+        38.19891072580856
+      ],
+      "area_km2_total": 431.729,
+      "zones": {
+        "core": {
+          "area_km2": 101.807,
+          "feature_count": 3,
+          "official_area_ha": 10188.62
+        },
+        "buffer": {
+          "area_km2": 80.451,
+          "feature_count": 3,
+          "official_area_ha": 8051.28
+        },
+        "experimental": {
+          "area_km2": 249.471,
+          "feature_count": 3,
+          "official_area_ha": 24965.39
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P04.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P04.merged.geojson",
+      "source_file": "山西汾河上游省级自然保护区"
+    },
+    {
+      "code": "SXPR-P33",
+      "legacy_code": null,
+      "name_full": "山西泽州猕猴省级自然保护区",
+      "name_short": "泽州猕猴",
+      "level": "provincial",
+      "center": {
+        "lng": 112.92569253731845,
+        "lat": 35.341557680082886
+      },
+      "bbox": [
+        112.59001479442058,
+        35.187334912191886,
+        113.23050366032086,
+        35.583113090878356
+      ],
+      "area_km2_total": 937.479,
+      "zones": {
+        "core": {
+          "area_km2": 421.206,
+          "feature_count": 1,
+          "official_area_ha": 42154.92
+        },
+        "buffer": {
+          "area_km2": 212.209,
+          "feature_count": 1,
+          "official_area_ha": 21237.36
+        },
+        "experimental": {
+          "area_km2": 304.065,
+          "feature_count": 1,
+          "official_area_ha": 30428.08
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P33.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P33.merged.geojson",
+      "source_file": "山西泽州猕猴省级自然保护区"
+    },
+    {
+      "code": "SXPR-P35",
+      "legacy_code": null,
+      "name_full": "山西浊漳河源头省级自然保护区",
+      "name_short": "浊漳河源头",
+      "level": "provincial",
+      "center": {
+        "lng": 112.58069576540615,
+        "lat": 36.89418837257782
+      },
+      "bbox": [
+        112.47135750479168,
+        36.80082660825023,
+        112.7092383957247,
+        36.97428853822496
+      ],
+      "area_km2_total": 159.285,
+      "zones": {
+        "core": {
+          "area_km2": 57.961,
+          "feature_count": 1,
+          "official_area_ha": 5800.87
+        },
+        "buffer": {
+          "area_km2": 34.003,
+          "feature_count": 1,
+          "official_area_ha": 3403.05
+        },
+        "experimental": {
+          "area_km2": 67.321,
+          "feature_count": 1,
+          "official_area_ha": 6737.92
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P35.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P35.merged.geojson",
+      "source_file": "山西浊漳河源头省级自然保护区"
+    },
+    {
+      "code": "SXPR-P22",
+      "legacy_code": null,
+      "name_full": "山西涑水河源头省级自然保护区",
+      "name_short": "涑水河源头",
+      "level": "provincial",
+      "center": {
+        "lng": 111.70317390050101,
+        "lat": 35.431826128168545
+      },
+      "bbox": [
+        111.55370209644235,
+        35.339382326359015,
+        111.85769634165948,
+        35.499798681783865
+      ],
+      "area_km2_total": 229.638,
+      "zones": {
+        "core": {
+          "area_km2": 62.378,
+          "feature_count": 1,
+          "official_area_ha": 6238.52
+        },
+        "buffer": {
+          "area_km2": 24.838,
+          "feature_count": 1,
+          "official_area_ha": 2484.07
+        },
+        "experimental": {
+          "area_km2": 142.423,
+          "feature_count": 4,
+          "official_area_ha": 14243.94
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P22.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P22.merged.geojson",
+      "source_file": "山西涑水河源头省级自然保护区"
+    },
+    {
+      "code": "SXPR-P12",
+      "legacy_code": null,
+      "name_full": "山西灵丘黑鹳省级自然保护区",
+      "name_short": "灵丘黑鹳",
+      "level": "provincial",
+      "center": {
+        "lng": 114.22148863351896,
+        "lat": 39.16421564897186
+      },
+      "bbox": [
+        113.94139997093481,
+        39.04680219622721,
+        114.46973044232715,
+        39.39421423429452
+      ],
+      "area_km2_total": 713.077,
+      "zones": {
+        "core": {
+          "area_km2": 247.134,
+          "feature_count": 1,
+          "official_area_ha": 24781.48
+        },
+        "buffer": {
+          "area_km2": 107.818,
+          "feature_count": 1,
+          "official_area_ha": 10811.21
+        },
+        "experimental": {
+          "area_km2": 358.126,
+          "feature_count": 1,
+          "official_area_ha": 35911.95
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P12.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P12.merged.geojson",
+      "source_file": "山西灵丘黑鹳省级自然保护区"
+    },
+    {
+      "code": "SXNR-N03",
+      "legacy_code": "SXNR-05",
+      "name_full": "山西灵空山国家级自然保护区",
+      "name_short": "灵空山",
+      "level": "national",
+      "center": {
+        "lng": 112.06786378399974,
+        "lat": 36.62665552730464
+      },
+      "bbox": [
+        111.99073431558526,
+        36.558998471654625,
+        112.13328731593032,
+        36.71293574557933
+      ],
+      "area_km2_total": 100.283,
+      "zones": {
+        "core": {
+          "area_km2": 47.501,
+          "feature_count": 2,
+          "official_area_ha": 4752.6
+        },
+        "buffer": {
+          "area_km2": 20.035,
+          "feature_count": 2,
+          "official_area_ha": 2004.54
+        },
+        "experimental": {
+          "area_km2": 32.747,
+          "feature_count": 2,
+          "official_area_ha": 3276.34
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N03.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N03.merged.geojson",
+      "source_file": "山西灵空山国家级自然保护区"
+    },
+    {
+      "code": "SXOR-O01",
+      "legacy_code": null,
+      "name_full": "山西省团圆山自然保护区",
+      "name_short": "团圆山",
+      "level": "other",
+      "center": {
+        "lng": 110.67942977938603,
+        "lat": 36.96865816888022
+      },
+      "bbox": [
+        110.57517066780768,
+        36.86441088391543,
+        110.7709609087104,
+        37.08479495560612
+      ],
+      "area_km2_total": 166.263,
+      "zones": {
+        "core": {
+          "area_km2": 62.781,
+          "feature_count": 3,
+          "official_area_ha": 6280.59
+        },
+        "buffer": {
+          "area_km2": 43.887,
+          "feature_count": 2,
+          "official_area_ha": 4390.38
+        },
+        "experimental": {
+          "area_km2": 59.594,
+          "feature_count": 1,
+          "official_area_ha": 5961.78
+        }
+      },
+      "geojson_path": "/geo/reserves/SXOR-O01.geojson",
+      "merged_geojson_path": "/geo/reserves/SXOR-O01.merged.geojson",
+      "source_file": "山西省团圆山自然保护区"
+    },
+    {
+      "code": "SXOR-O02",
+      "legacy_code": null,
+      "name_full": "山西省应县南山自然保护区",
+      "name_short": "应县南山",
+      "level": "other",
+      "center": {
+        "lng": 113.40546313707722,
+        "lat": 39.376699860385784
+      },
+      "bbox": [
+        113.13401483078168,
+        39.29641439012738,
+        113.5648948814299,
+        39.463648292706345
+      ],
+      "area_km2_total": 273.911,
+      "zones": {
+        "core": {
+          "area_km2": 102.005,
+          "feature_count": 1,
+          "official_area_ha": 10220.79
+        },
+        "buffer": {
+          "area_km2": 94.069,
+          "feature_count": 1,
+          "official_area_ha": 9424.89
+        },
+        "experimental": {
+          "area_km2": 77.837,
+          "feature_count": 1,
+          "official_area_ha": 7799
+        }
+      },
+      "geojson_path": "/geo/reserves/SXOR-O02.geojson",
+      "merged_geojson_path": "/geo/reserves/SXOR-O02.merged.geojson",
+      "source_file": "山西省应县南山自然保护区"
+    },
+    {
+      "code": "SXPR-P05",
+      "legacy_code": null,
+      "name_full": "山西管头山省级自然保护区",
+      "name_short": "管头山",
+      "level": "provincial",
+      "center": {
+        "lng": 110.57086097332467,
+        "lat": 36.161763311914754
+      },
+      "bbox": [
+        110.50305190967019,
+        36.10616289609494,
+        110.66979401830248,
+        36.22164646637168
+      ],
+      "area_km2_total": 100.218,
+      "zones": {
+        "core": {
+          "area_km2": 35.995,
+          "feature_count": 1,
+          "official_area_ha": 3600.34
+        },
+        "buffer": {
+          "area_km2": 21.626,
+          "feature_count": 1,
+          "official_area_ha": 2163.05
+        },
+        "experimental": {
+          "area_km2": 42.597,
+          "feature_count": 1,
+          "official_area_ha": 4260.7
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P05.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P05.merged.geojson",
+      "source_file": "山西管头山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P09",
+      "legacy_code": null,
+      "name_full": "山西红泥寺省级自然保护区",
+      "name_short": "红泥寺",
+      "level": "provincial",
+      "center": {
+        "lng": 112.46235892945958,
+        "lat": 36.13824630277196
+      },
+      "bbox": [
+        112.36694131343373,
+        36.02709087623158,
+        112.56740970103955,
+        36.22823273412909
+      ],
+      "area_km2_total": 206.941,
+      "zones": {
+        "core": {
+          "area_km2": 33.992,
+          "feature_count": 1,
+          "official_area_ha": 3401.25
+        },
+        "buffer": {
+          "area_km2": 72.738,
+          "feature_count": 1,
+          "official_area_ha": 7278.23
+        },
+        "experimental": {
+          "area_km2": 100.212,
+          "feature_count": 1,
+          "official_area_ha": 10027.25
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P09.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P09.merged.geojson",
+      "source_file": "山西红泥寺省级自然保护区"
+    },
+    {
+      "code": "SXPR-P16",
+      "legacy_code": null,
+      "name_full": "山西绵山省级自然保护区",
+      "name_short": "绵山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.05055755626894,
+        "lat": 36.90521054469339
+      },
+      "bbox": [
+        111.93346885687167,
+        36.82485230445682,
+        112.12243706589533,
+        36.99559030491543
+      ],
+      "area_km2_total": 178.518,
+      "zones": {
+        "core": {
+          "area_km2": 60.658,
+          "feature_count": 3,
+          "official_area_ha": 6069.23
+        },
+        "buffer": {
+          "area_km2": 48.082,
+          "feature_count": 6,
+          "official_area_ha": 4810.94
+        },
+        "experimental": {
+          "area_km2": 69.778,
+          "feature_count": 5,
+          "official_area_ha": 6981.73
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P16.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P16.merged.geojson",
+      "source_file": "山西绵山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P29",
+      "legacy_code": null,
+      "name_full": "山西翼城翅果油树省级自然保护区",
+      "name_short": "翼城翅果油树",
+      "level": "provincial",
+      "center": {
+        "lng": 111.8165716156968,
+        "lat": 35.641876138032444
+      },
+      "bbox": [
+        111.7460176180203,
+        35.596653673263866,
+        111.89487100736157,
+        35.717998709343036
+      ],
+      "area_km2_total": 108.989,
+      "zones": {
+        "core": {
+          "area_km2": 30.14,
+          "feature_count": 2,
+          "official_area_ha": 3014.59
+        },
+        "buffer": {
+          "area_km2": 20.535,
+          "feature_count": 2,
+          "official_area_ha": 2053.89
+        },
+        "experimental": {
+          "area_km2": 58.315,
+          "feature_count": 2,
+          "official_area_ha": 5832.74
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P29.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P29.merged.geojson",
+      "source_file": "山西翼城翅果油树省级自然保护区"
+    },
+    {
+      "code": "SXPR-P03",
+      "legacy_code": null,
+      "name_full": "山西臭冷杉省级自然保护区",
+      "name_short": "臭冷杉",
+      "level": "provincial",
+      "center": {
+        "lng": 113.528370375408,
+        "lat": 39.11104702302844
+      },
+      "bbox": [
+        113.35084727372099,
+        39.03524806624337,
+        113.64008353065613,
+        39.21618095975291
+      ],
+      "area_km2_total": 236.695,
+      "zones": {
+        "core": {
+          "area_km2": 83.692,
+          "feature_count": 2,
+          "official_area_ha": 8386.06
+        },
+        "buffer": {
+          "area_km2": 35.987,
+          "feature_count": 1,
+          "official_area_ha": 3605.97
+        },
+        "experimental": {
+          "area_km2": 117.016,
+          "feature_count": 1,
+          "official_area_ha": 11725.23
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P03.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P03.merged.geojson",
+      "source_file": "山西臭冷杉省级自然保护区"
+    },
+    {
+      "code": "SXNR-N04",
+      "legacy_code": "SXNR-01",
+      "name_full": "山西芦芽山国家级自然保护区",
+      "name_short": "芦芽山",
+      "level": "national",
+      "center": {
+        "lng": 111.92883379905476,
+        "lat": 38.70645969781824
+      },
+      "bbox": [
+        111.83281747982507,
+        38.590154001436325,
+        112.09862478804848,
+        38.75972019919539
+      ],
+      "area_km2_total": 216.964,
+      "zones": {
+        "core": {
+          "area_km2": 61.11,
+          "feature_count": 4,
+          "official_area_ha": 6116.66
+        },
+        "buffer": {
+          "area_km2": 12.807,
+          "feature_count": 4,
+          "official_area_ha": 1281.89
+        },
+        "experimental": {
+          "area_km2": 143.047,
+          "feature_count": 2,
+          "official_area_ha": 14318.02
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N04.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N04.merged.geojson",
+      "source_file": "山西芦芽山国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P28",
+      "legacy_code": null,
+      "name_full": "山西药林寺冠山省级自然保护区",
+      "name_short": "药林寺冠山",
+      "level": "provincial",
+      "center": {
+        "lng": 113.60204406361987,
+        "lat": 37.87177944152767
+      },
+      "bbox": [
+        113.4317103592016,
+        37.671156123031075,
+        113.82994918525756,
+        38.109280691273135
+      ],
+      "area_km2_total": 109.703,
+      "zones": {
+        "core": {
+          "area_km2": 30.674,
+          "feature_count": 3,
+          "official_area_ha": 3072.95
+        },
+        "buffer": {
+          "area_km2": 23.97,
+          "feature_count": 5,
+          "official_area_ha": 2401.44
+        },
+        "experimental": {
+          "area_km2": 55.059,
+          "feature_count": 2,
+          "official_area_ha": 5516.03
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P28.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P28.merged.geojson",
+      "source_file": "山西药林寺冠山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P25",
+      "legacy_code": null,
+      "name_full": "山西蔚汾河省级自然保护区",
+      "name_short": "蔚汾河",
+      "level": "provincial",
+      "center": {
+        "lng": 111.34576426496906,
+        "lat": 38.491938079162146
+      },
+      "bbox": [
+        111.2510809800311,
+        38.40910693480972,
+        111.41888696234173,
+        38.6044240388746
+      ],
+      "area_km2_total": 176.501,
+      "zones": {
+        "core": {
+          "area_km2": 64.443,
+          "feature_count": 2,
+          "official_area_ha": 6449.01
+        },
+        "buffer": {
+          "area_km2": 56.755,
+          "feature_count": 2,
+          "official_area_ha": 5679.64
+        },
+        "experimental": {
+          "area_km2": 55.304,
+          "feature_count": 1,
+          "official_area_ha": 5534.43
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P25.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P25.merged.geojson",
+      "source_file": "山西蔚汾河省级自然保护区"
+    },
+    {
+      "code": "SXPR-P26",
+      "legacy_code": null,
+      "name_full": "山西薛公岭省级自然保护区",
+      "name_short": "薛公岭",
+      "level": "provincial",
+      "center": {
+        "lng": 111.34312990117104,
+        "lat": 37.3993006163864
+      },
+      "bbox": [
+        111.22035711757114,
+        37.31456549179415,
+        111.46047549113592,
+        37.46307417319769
+      ],
+      "area_km2_total": 198.035,
+      "zones": {
+        "core": {
+          "area_km2": 76.567,
+          "feature_count": 2,
+          "official_area_ha": 7660.48
+        },
+        "buffer": {
+          "area_km2": 33.517,
+          "feature_count": 2,
+          "official_area_ha": 3353.31
+        },
+        "experimental": {
+          "area_km2": 87.95,
+          "feature_count": 2,
+          "official_area_ha": 8799.3
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P26.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P26.merged.geojson",
+      "source_file": "山西薛公岭省级自然保护区"
+    },
+    {
+      "code": "SXPR-P07",
+      "legacy_code": null,
+      "name_full": "山西贺家山省级自然保护区",
+      "name_short": "贺家山",
+      "level": "provincial",
+      "center": {
+        "lng": 111.20907248792783,
+        "lat": 38.82514650023992
+      },
+      "bbox": [
+        111.14492217363382,
+        38.72019108131102,
+        111.32766690236113,
+        38.95095296917393
+      ],
+      "area_km2_total": 186.077,
+      "zones": {
+        "core": {
+          "area_km2": 39.26,
+          "feature_count": 2,
+          "official_area_ha": 3929.09
+        },
+        "buffer": {
+          "area_km2": 38.146,
+          "feature_count": 3,
+          "official_area_ha": 3817.63
+        },
+        "experimental": {
+          "area_km2": 108.671,
+          "feature_count": 1,
+          "official_area_ha": 10875.86
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P07.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P07.merged.geojson",
+      "source_file": "山西贺家山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P02",
+      "legacy_code": null,
+      "name_full": "山西超山省级自然保护区",
+      "name_short": "超山",
+      "level": "provincial",
+      "center": {
+        "lng": 112.3722534297789,
+        "lat": 37.01972765192562
+      },
+      "bbox": [
+        112.29087511732263,
+        36.931372156265404,
+        112.45694863870403,
+        37.11395297973096
+      ],
+      "area_km2_total": 191.093,
+      "zones": {
+        "core": {
+          "area_km2": 63.4,
+          "feature_count": 2,
+          "official_area_ha": 6344.66
+        },
+        "buffer": {
+          "area_km2": 36.616,
+          "feature_count": 2,
+          "official_area_ha": 3664.31
+        },
+        "experimental": {
+          "area_km2": 91.078,
+          "feature_count": 1,
+          "official_area_ha": 9114.62
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P02.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P02.merged.geojson",
+      "source_file": "山西超山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P32",
+      "legacy_code": null,
+      "name_full": "山西运城湿地省级自然保护区",
+      "name_short": "运城湿地",
+      "level": "provincial",
+      "center": {
+        "lng": 111.16838766781899,
+        "lat": 34.93297327402084
+      },
+      "bbox": [
+        110.23182336320885,
+        34.582778999623436,
+        112.0552981611942,
+        35.659958479347154
+      ],
+      "area_km2_total": 867.476,
+      "zones": {
+        "core": {
+          "area_km2": 344.04,
+          "feature_count": 6,
+          "official_area_ha": 34403.55
+        },
+        "buffer": {
+          "area_km2": 79.414,
+          "feature_count": 8,
+          "official_area_ha": 7941.62
+        },
+        "experimental": {
+          "area_km2": 444.022,
+          "feature_count": 14,
+          "official_area_ha": 44402.66
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P32.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P32.merged.geojson",
+      "source_file": "山西运城湿地省级自然保护区"
+    },
+    {
+      "code": "SXPR-P24",
+      "legacy_code": null,
+      "name_full": "山西铁桥山省级自然保护区",
+      "name_short": "铁桥山",
+      "level": "provincial",
+      "center": {
+        "lng": 113.37108041307557,
+        "lat": 37.4267658097099
+      },
+      "bbox": [
+        113.15407174248978,
+        37.28517620801502,
+        113.53713660476438,
+        37.520115308233336
+      ],
+      "area_km2_total": 386.648,
+      "zones": {
+        "core": {
+          "area_km2": 140.866,
+          "feature_count": 2,
+          "official_area_ha": 14108.04
+        },
+        "buffer": {
+          "area_km2": 49.796,
+          "feature_count": 2,
+          "official_area_ha": 4987.3
+        },
+        "experimental": {
+          "area_km2": 195.986,
+          "feature_count": 1,
+          "official_area_ha": 19628.88
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P24.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P24.merged.geojson",
+      "source_file": "山西铁桥山省级自然保护区"
+    },
+    {
+      "code": "SXNR-N08",
+      "legacy_code": "SXNR-08",
+      "name_full": "山西阳城蟒河猕猴国家级自然保护区",
+      "name_short": "阳城蟒河猕猴",
+      "level": "national",
+      "center": {
+        "lng": 112.45570372025412,
+        "lat": 35.24520735168215
+      },
+      "bbox": [
+        112.36965483280542,
+        35.21875604495022,
+        112.52785850656792,
+        35.29442367588361
+      ],
+      "area_km2_total": 56.95,
+      "zones": {
+        "core": {
+          "area_km2": 34.23,
+          "feature_count": 5,
+          "official_area_ha": 3424.41
+        },
+        "buffer": {
+          "area_km2": 5.885,
+          "feature_count": 1,
+          "official_area_ha": 588.7
+        },
+        "experimental": {
+          "area_km2": 16.836,
+          "feature_count": 1,
+          "official_area_ha": 1684.29
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N08.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N08.merged.geojson",
+      "source_file": "山西阳城蟒河猕猴国家级自然保护区"
+    },
+    {
+      "code": "SXPR-P11",
+      "legacy_code": null,
+      "name_full": "山西霍山省级自然保护区",
+      "name_short": "霍山",
+      "level": "provincial",
+      "center": {
+        "lng": 111.9040214428339,
+        "lat": 36.49975251932984
+      },
+      "bbox": [
+        111.80094817285891,
+        36.408933622672464,
+        112.00884666883371,
+        36.58486559105082
+      ],
+      "area_km2_total": 179.395,
+      "zones": {
+        "core": {
+          "area_km2": 68.891,
+          "feature_count": 6,
+          "official_area_ha": 6892.01
+        },
+        "buffer": {
+          "area_km2": 27.451,
+          "feature_count": 6,
+          "official_area_ha": 2746.26
+        },
+        "experimental": {
+          "area_km2": 83.054,
+          "feature_count": 4,
+          "official_area_ha": 8308.85
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P11.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P11.merged.geojson",
+      "source_file": "山西霍山省级自然保护区"
+    },
+    {
+      "code": "SXPR-P06",
+      "legacy_code": null,
+      "name_full": "山西韩信岭省级自然保护区",
+      "name_short": "韩信岭",
+      "level": "provincial",
+      "center": {
+        "lng": 111.79968380721708,
+        "lat": 36.771844699968824
+      },
+      "bbox": [
+        111.6633582727271,
+        36.70791445323227,
+        111.93747353814818,
+        36.83583462754576
+      ],
+      "area_km2_total": 128.028,
+      "zones": {
+        "core": {
+          "area_km2": 73.363,
+          "feature_count": 3,
+          "official_area_ha": 7339.65
+        },
+        "buffer": {
+          "area_km2": 24.711,
+          "feature_count": 3,
+          "official_area_ha": 2472.18
+        },
+        "experimental": {
+          "area_km2": 29.955,
+          "feature_count": 4,
+          "official_area_ha": 2996.81
+        }
+      },
+      "geojson_path": "/geo/reserves/SXPR-P06.geojson",
+      "merged_geojson_path": "/geo/reserves/SXPR-P06.merged.geojson",
+      "source_file": "山西韩信岭省级自然保护区"
+    },
+    {
+      "code": "SXNR-N01",
+      "legacy_code": "SXNR-03",
+      "name_full": "山西黑茶山国家级自然保护区",
+      "name_short": "黑茶山",
+      "level": "national",
+      "center": {
+        "lng": 111.30481508746199,
+        "lat": 38.27222355311719
+      },
+      "bbox": [
+        111.19408136333057,
+        38.16853588603149,
+        111.44323392602284,
+        38.40246593323325
+      ],
+      "area_km2_total": 246.612,
+      "zones": {
+        "core": {
+          "area_km2": 101.782,
+          "feature_count": 1,
+          "official_area_ha": 10185.12
+        },
+        "buffer": {
+          "area_km2": 65.139,
+          "feature_count": 1,
+          "official_area_ha": 6518.36
+        },
+        "experimental": {
+          "area_km2": 79.692,
+          "feature_count": 3,
+          "official_area_ha": 7974.56
+        }
+      },
+      "geojson_path": "/geo/reserves/SXNR-N01.geojson",
+      "merged_geojson_path": "/geo/reserves/SXNR-N01.merged.geojson",
+      "source_file": "山西黑茶山国家级自然保护区"
+    },
+    {
+      "code": "SXOR-O03",
+      "legacy_code": null,
+      "name_full": "忻州五台山高山草甸自然保护区",
+      "name_short": "忻州五台山高山草甸",
+      "level": "other",
+      "center": {
+        "lng": 113.58206066684647,
+        "lat": 39.0655583854438
+      },
+      "bbox": [
+        113.52471734554395,
+        38.91603099219202,
+        113.66108824996967,
+        39.09923647725705
+      ],
+      "area_km2_total": 33.296,
+      "zones": {
+        "core": {
+          "area_km2": 5.486,
+          "feature_count": 4,
+          "official_area_ha": 549.71
+        },
+        "buffer": {
+          "area_km2": 1.861,
+          "feature_count": 3,
+          "official_area_ha": 186.53
+        },
+        "experimental": {
+          "area_km2": 25.949,
+          "feature_count": 4,
+          "official_area_ha": 2600.29
+        }
+      },
+      "geojson_path": "/geo/reserves/SXOR-O03.geojson",
+      "merged_geojson_path": "/geo/reserves/SXOR-O03.merged.geojson",
+      "source_file": "忻州五台山高山草甸自然保护区"
+    }
+  ]
+}

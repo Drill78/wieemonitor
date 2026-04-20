@@ -1,0 +1,79 @@
+{
+  "scanned_at": "2026-04-20T08:54:10.241Z",
+  "shp_dir": "C:\\Users\\zhour\\Documents\\wiee\\保护区边界",
+  "total_shp": 46,
+  "success": 46,
+  "failed": 0,
+  "by_level": {
+    "national": 8,
+    "provincial": 35,
+    "other": 3
+  },
+  "gnfq_field_values": {
+    "核心区": 100,
+    "实验区": 101,
+    "缓冲区": 103
+  },
+  "legacy_mapping": [
+    {
+      "legacy": "SXNR-04",
+      "new": "SXNR-N07",
+      "name_short": "五鹿山"
+    },
+    {
+      "legacy": "SXNR-06",
+      "new": "SXNR-N02",
+      "name_short": "历山"
+    },
+    {
+      "legacy": "SXNR-07",
+      "new": "SXNR-N06",
+      "name_short": "太宽河"
+    },
+    {
+      "legacy": "SXNR-02",
+      "new": "SXNR-N05",
+      "name_short": "庞泉沟"
+    },
+    {
+      "legacy": "SXNR-05",
+      "new": "SXNR-N03",
+      "name_short": "灵空山"
+    },
+    {
+      "legacy": "SXNR-01",
+      "new": "SXNR-N04",
+      "name_short": "芦芽山"
+    },
+    {
+      "legacy": "SXNR-08",
+      "new": "SXNR-N08",
+      "name_short": "阳城蟒河猕猴"
+    },
+    {
+      "legacy": "SXNR-03",
+      "new": "SXNR-N01",
+      "name_short": "黑茶山"
+    }
+  ],
+  "legacy_unmapped": [],
+  "non_standard_files": [
+    {
+      "code": "SXOR-O01",
+      "file": "山西省团圆山自然保护区.shp",
+      "name_short": "团圆山"
+    },
+    {
+      "code": "SXOR-O02",
+      "file": "山西省应县南山自然保护区.shp",
+      "name_short": "应县南山"
+    },
+    {
+      "code": "SXOR-O03",
+      "file": "忻州五台山高山草甸自然保护区.shp",
+      "name_short": "忻州五台山高山草甸"
+    }
+  ],
+  "area_warnings_over_10pct": [],
+  "errors": []
+}

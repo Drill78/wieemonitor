@@ -1,14 +1,16 @@
 /**
  * 首页：全屏地图 + 右侧 Sidebar + 详情 Modal（样线/相机）。
  *
- * 状态：
+ * 阶段 1.4：保护区数据从 /geo/reserves-registry.json 异步加载（46 个）。
+ * 顶层 state：
+ *   - reserves: 全部保护区列表
  *   - selectedReserve / transectsOfReserve / selectedTransect
- *   - camerasOfTransect / selectedCamera（相机由"选中样线"派生）
- *   - detailTransect / detailCamera（两个独立的 Modal）
+ *   - camerasOfTransect / selectedCamera
+ *   - detailTransect / detailCamera
+ *   - displayMode（zones/merged） / levelFilter（national/provincial/other）
  *
- * URL 参数：?reserve=SXNR-XX&transect=ID&camera=CID
- *   挂载时如有，自动选中并清空 URL（router.replace）。
- *   camera 需要等 cameras 加载完才能锁定，所以放在 transects 加载后处理。
+ * URL 参数：?reserve=&transect=&camera=
+ *   reserve 支持新编码（SXNR-N02）和旧编码（SXNR-06）。
  */
 
 'use client';
@@ -17,15 +19,16 @@ import { Suspense, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import Sidebar from '@/components/layout/Sidebar';
+import Sidebar, { type DisplayMode } from '@/components/layout/Sidebar';
 import TransectDetailModal from '@/components/modules/TransectDetailModal';
 import CameraDetailModal from '@/components/modules/CameraDetailModal';
-import { reserves } from '@/data/mock/reserves';
+import { loadReserves } from '@/lib/reserves';
 import { getTransectsByReserve } from '@/lib/transects';
 import { getCamerasByTransect } from '@/lib/cameras';
 import type {
   CameraManifestEntry,
-  Reserve,
+  ReserveLevel,
+  ReserveRegistryEntry,
   TransectManifestEntry,
 } from '@/types';
 
@@ -37,6 +40,8 @@ const MapView = dynamic(() => import('@/components/map/MapView'), {
     </div>
   ),
 });
+
+const RESERVE_TINT = '#3b82f6';
 
 export default function Home() {
   return (
@@ -50,7 +55,9 @@ function HomeInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [selectedReserve, setSelectedReserve] = useState<Reserve | null>(null);
+  const [reserves, setReserves] = useState<ReserveRegistryEntry[]>([]);
+  const [selectedReserve, setSelectedReserve] =
+    useState<ReserveRegistryEntry | null>(null);
   const [transectsOfReserve, setTransectsOfReserve] = useState<
     TransectManifestEntry[]
   >([]);
@@ -67,6 +74,21 @@ function HomeInner() {
     useState<TransectManifestEntry | null>(null);
   const [detailCamera, setDetailCamera] =
     useState<CameraManifestEntry | null>(null);
+
+  // 地图设置
+  const [displayMode, setDisplayMode] = useState<DisplayMode>('zones');
+  const [levelFilter, setLevelFilter] = useState<Record<ReserveLevel, boolean>>({
+    national: true,
+    provincial: true,
+    other: true,
+  });
+
+  // 加载 46 个保护区 registry
+  useEffect(() => {
+    loadReserves()
+      .then((list) => setReserves(list))
+      .catch((e) => console.warn('[page] reserves 加载失败：', e));
+  }, []);
 
   // 切换保护区时加载样线
   useEffect(() => {
@@ -109,13 +131,17 @@ function HomeInner() {
   }, [selectedTransect]);
 
   // === URL 参数：仅初次挂载读取 ?reserve=&transect=&camera= ===
+  // 兼容旧编码（SXNR-06）→ 用 legacy_code 反查
   useEffect(() => {
+    if (reserves.length === 0) return; // 等 registry 加载完
     const reserveCode = searchParams.get('reserve');
     const transectId = searchParams.get('transect');
     const cameraId = searchParams.get('camera');
     if (!reserveCode) return;
 
-    const reserve = reserves.find((r) => r.code === reserveCode);
+    const reserve =
+      reserves.find((r) => r.code === reserveCode) ??
+      reserves.find((r) => r.legacy_code === reserveCode);
     if (!reserve) {
       router.replace('/');
       return;
@@ -124,13 +150,12 @@ function HomeInner() {
     setSelectedReserve(reserve);
 
     if (transectId) {
-      getTransectsByReserve(reserveCode)
+      getTransectsByReserve(reserve.code)
         .then((list) => {
           const t = list.find((x) => x.id === transectId);
           if (!t) return;
           setSelectedTransect(t);
 
-          // camera 必须依赖于已选中的样线
           if (cameraId) {
             getCamerasByTransect(t.id).then((cams) => {
               const cam = cams.find((c) => c.id === cameraId);
@@ -143,9 +168,9 @@ function HomeInner() {
 
     router.replace('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reserves]);
 
-  const handleReserveClick = (r: Reserve) => {
+  const handleReserveClick = (r: ReserveRegistryEntry) => {
     setSelectedReserve(r);
     setSelectedTransect(null);
     setSelectedCamera(null);
@@ -160,8 +185,11 @@ function HomeInner() {
   return (
     <main className="relative h-[calc(100vh-4rem)]">
       <MapView
-        onReserveClick={handleReserveClick}
+        reserves={reserves}
         selectedReserve={selectedReserve}
+        onReserveClick={handleReserveClick}
+        displayMode={displayMode}
+        levelFilter={levelFilter}
         transects={transectsOfReserve}
         selectedTransectId={selectedTransect?.id ?? null}
         cameras={camerasOfTransect}
@@ -176,21 +204,26 @@ function HomeInner() {
         selectedTransectId={selectedTransect?.id ?? null}
         onTransectSelect={(t) => {
           setSelectedTransect(t);
-          // 切换/取消样线时清空相机选择
           setSelectedCamera(null);
         }}
         onDetailClick={setDetailTransect}
         onClose={handleClose}
+        displayMode={displayMode}
+        onDisplayModeChange={setDisplayMode}
+        levelFilter={levelFilter}
+        onLevelFilterChange={(level, enabled) =>
+          setLevelFilter((prev) => ({ ...prev, [level]: enabled }))
+        }
       />
       <TransectDetailModal
         transect={detailTransect}
-        reserveColor={selectedReserve?.color}
+        reserveColor={RESERVE_TINT}
         onClose={() => setDetailTransect(null)}
       />
       <CameraDetailModal
         camera={detailCamera}
-        reserveColor={selectedReserve?.color}
-        reserveName={selectedReserve?.name ?? null}
+        reserveColor={RESERVE_TINT}
+        reserveName={selectedReserve?.name_full ?? null}
         onClose={() => setDetailCamera(null)}
       />
     </main>

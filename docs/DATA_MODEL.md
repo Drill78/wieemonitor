@@ -50,16 +50,34 @@ geom geometry(Polygon, 4326) NOT NULL
 | 字段 | 类型 | 说明 | 状态 |
 |------|------|------|------|
 | `id` | `bigserial` | 主键 | ✅ 确定 |
-| `name` | `text NOT NULL` | 保护区名称 | ✅ 确定 |
-| `code` | `text UNIQUE` | 保护区编码（如 `SXBHQ-001`） | ✅ 确定 |
-| `province` | `text` | 所属省份（"山西"等） | ✅ 确定 |
-| `geom` | `geometry(Polygon, 4326)` 或 `MultiPolygon` | 保护区边界 | ✅ 确定 |
-| `area_km2` | `numeric` | 面积（平方公里） | 🟡 待定 |
+| `name_full` | `text NOT NULL` | 保护区全名（如 "山西历山国家级自然保护区"） | ✅ 确定 |
+| `name_short` | `text NOT NULL` | 短名（如 "历山"，用于地图标签） | ✅ 确定 |
+| `code` | `text UNIQUE NOT NULL` | 保护区编码（`SXNR-N{01..08}` / `SXPR-P{01..35}` / `SXOR-O{01..03}`） | ✅ 确定 |
+| `legacy_code` | `text` | 兼容老编码（OSM 时期的 `SXNR-01..08`），可空 | ✅ 确定 |
+| `level` | `text NOT NULL` CHECK in ('national','provincial','other') | 保护区级别 | ✅ 确定 |
+| `province` | `text` | 所属省份（当前全是 "山西"） | ✅ 确定 |
+| `boundary_source` | `text` | 边界数据来源（当前全是 "山西省林草局 shapefile"） | ✅ 确定 |
+| `area_km2_total` | `numeric` | 总面积（平方公里，由 PostGIS 计算或离线写入） | ✅ 确定 |
 | `description` | `text` | 介绍文字 | 🟡 待定 |
 | `established_at` | `date` | 建立时间 | 🟡 待定 |
 | `created_at` / `updated_at` | `timestamptz` | 通用字段 | ✅ 确定 |
 
-> **阶段 3 待定**：是否区分核心区 / 缓冲区 / 实验区（如果区分，需拆分子表）。
+> 保护区边界按"区"拆到子表 `shared.reserve_zones`，每条 reserve 多条 zone。
+
+### `shared.reserve_zones` — 保护区分区
+
+| 字段 | 类型 | 说明 | 状态 |
+|------|------|------|------|
+| `id` | `bigserial` | 主键 | ✅ 确定 |
+| `reserve_id` | `bigint REFERENCES shared.reserves(id)` | 所属保护区 | ✅ 确定 |
+| `zone` | `text NOT NULL` CHECK in ('core','buffer','experimental','unknown') | 区类型 | ✅ 确定 |
+| `geom` | `geometry(MultiPolygon, 4326)` | 该区合并几何 | ✅ 确定 |
+| `area_km2` | `numeric` | 该区面积（PostGIS ST_Area 计算或离线写入） | ✅ 确定 |
+| `feature_count` | `int` | 原始 shapefile 里属于本区的 feature 数 | 🟡 待定 |
+| `created_at` / `updated_at` | `timestamptz` | | ✅ 确定 |
+
+> 阶段 1.4 把 OSM 单 polygon 模式替换为"按区分层"。前端的"合并显示"模式
+> 在数据库侧不需要单独存 —— 用 `ST_Union(geom)` over reserve_zones 即可。
 
 ---
 

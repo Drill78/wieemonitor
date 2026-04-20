@@ -60,8 +60,14 @@ body {
   display: none;
 }
 
-/* zoom < 7 时整体隐藏（由 ReserveLayer 在 map 容器加 .low-zoom 控制） */
-.leaflet-container.low-zoom .reserve-label {
+/* 标签可见性策略（由 ReserveLayer 根据 zoom 在容器上加 class 控制） */
+.leaflet-container.reserve-labels-hidden-all .reserve-label {
+  display: none;
+}
+.leaflet-container.reserve-labels-hidden-provincial
+  .reserve-label--provincial,
+.leaflet-container.reserve-labels-hidden-provincial
+  .reserve-label--other {
   display: none;
 }
 

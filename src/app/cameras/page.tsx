@@ -15,18 +15,23 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import CameraDetailModal from '@/components/modules/CameraDetailModal';
-import { reserves } from '@/data/mock/reserves';
+import { loadReserves } from '@/lib/reserves';
 import {
   formatDeployTime,
   formatValue,
   loadCameraManifest,
 } from '@/lib/cameras';
-import type { CameraManifestEntry } from '@/types';
+import type {
+  CameraManifestEntry,
+  ReserveRegistryEntry,
+} from '@/types';
 
 const UNASSIGNED_KEY = '__unassigned__';
+const RESERVE_TINT = '#3b82f6';
 
 export default function CamerasPage() {
   const [manifest, setManifest] = useState<CameraManifestEntry[] | null>(null);
+  const [reserves, setReserves] = useState<ReserveRegistryEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [detailCamera, setDetailCamera] =
@@ -36,6 +41,7 @@ export default function CamerasPage() {
     loadCameraManifest()
       .then((list) => setManifest(list))
       .catch((e) => setError(String(e)));
+    loadReserves().then(setReserves).catch(() => {});
   }, []);
 
   const filtered = useMemo(() => {
@@ -140,7 +146,7 @@ export default function CamerasPage() {
             <TransectGroup
               key={key}
               transectId={isUnassigned ? '未归属相机' : key}
-              reserveName={reserve?.name ?? null}
+              reserveName={reserve?.name_full ?? null}
               reserveCode={reserveCode}
               cameras={list}
               onDetail={(c) => setDetailCamera(c)}
@@ -151,15 +157,11 @@ export default function CamerasPage() {
 
       <CameraDetailModal
         camera={detailCamera}
-        reserveColor={
-          detailCamera?.reserve_code
-            ? reserves.find((r) => r.code === detailCamera.reserve_code)?.color
-            : undefined
-        }
+        reserveColor={RESERVE_TINT}
         reserveName={
           detailCamera?.reserve_code
-            ? reserves.find((r) => r.code === detailCamera.reserve_code)?.name ??
-              null
+            ? reserves.find((r) => r.code === detailCamera.reserve_code)
+                ?.name_full ?? null
             : null
         }
         onClose={() => setDetailCamera(null)}
