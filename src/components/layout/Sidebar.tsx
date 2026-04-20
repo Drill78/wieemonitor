@@ -1,21 +1,26 @@
 /**
  * 右侧滑出式 Sidebar。
- * 当用户在地图上点击保护区后，由 page.tsx 传入 reserve 数据，从右侧滑入显示。
  *
- * 阶段 1.1：「样线数据」卡片改为真实样线列表（从 manifest 拉取）。
- *           其它 3 个模块仍是占位卡片。
+ * 阶段 1.1：样线数据卡片接入 manifest
+ * 阶段 1.3：红外相机卡片接入 manifest（按保护区/样线统计数量 + 提示点 emoji）
+ *           生物信息、声音数据仍是占位
  */
 
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { Reserve, TransectManifestEntry } from '@/types';
+import type {
+  CameraManifestEntry,
+  Reserve,
+  TransectManifestEntry,
+} from '@/types';
 import {
   getTransectsByReserve,
   formatDistanceKm,
   formatDuration,
   formatDateOnly,
 } from '@/lib/transects';
+import { getCamerasByReserve, getCamerasByTransect } from '@/lib/cameras';
 
 interface SidebarProps {
   reserve: Reserve | null;
@@ -25,9 +30,8 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-// 其余 3 个模块占位 —— 对应 ROADMAP 的阶段编号
+// 仍是占位的两个模块（红外相机已上线 → 单独由 CamerasSection 渲染）
 const otherModules = [
-  { title: '红外相机', stage: 2, hint: '相机部署点位 + 拍摄到的照片' },
   { title: '生物信息', stage: 4, hint: 'DNA 测序样本与鉴定结果' },
   { title: '声音数据', stage: 4, hint: '声学采样的音频与元数据' },
 ];
@@ -85,6 +89,11 @@ export default function Sidebar({
               selectedTransectId={selectedTransectId}
               onTransectSelect={onTransectSelect}
               onDetailClick={onDetailClick}
+            />
+
+            <CamerasSection
+              reserve={reserve}
+              selectedTransectId={selectedTransectId}
             />
 
             {otherModules.map((m) => (
@@ -256,5 +265,96 @@ function TransectListItem({
         </div>
       </button>
     </li>
+  );
+}
+
+// === 「红外相机」卡片 ===
+
+function CamerasSection({
+  reserve,
+  selectedTransectId,
+}: {
+  reserve: Reserve;
+  selectedTransectId: string | null;
+}) {
+  const [reserveCount, setReserveCount] = useState<number | null>(null);
+  const [transectCount, setTransectCount] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // 保护区维度的数量
+  useEffect(() => {
+    let cancelled = false;
+    setReserveCount(null);
+    setError(null);
+    getCamerasByReserve(reserve.code)
+      .then((list: CameraManifestEntry[]) => {
+        if (!cancelled) setReserveCount(list.length);
+      })
+      .catch((e) => {
+        if (!cancelled) setError(String(e));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [reserve.code]);
+
+  // 选中样线后再求该样线的数量
+  useEffect(() => {
+    if (!selectedTransectId) {
+      setTransectCount(null);
+      return;
+    }
+    let cancelled = false;
+    getCamerasByTransect(selectedTransectId)
+      .then((list) => {
+        if (!cancelled) setTransectCount(list.length);
+      })
+      .catch(() => {
+        if (!cancelled) setTransectCount(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedTransectId]);
+
+  return (
+    <div className="border border-slate-200 rounded-lg p-4 bg-slate-50/60">
+      <div className="flex items-center justify-between mb-2">
+        <span className="font-semibold text-slate-800">红外相机</span>
+        <span className="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-600">
+          阶段 2
+        </span>
+      </div>
+
+      {error && (
+        <div className="text-xs text-rose-600">加载失败：{error}</div>
+      )}
+
+      {!error && (
+        <>
+          {selectedTransectId == null ? (
+            <div className="text-sm text-slate-700">
+              {reserveCount == null
+                ? '加载中…'
+                : reserveCount === 0
+                  ? '该保护区暂无相机数据'
+                  : `本保护区共 ${reserveCount} 台相机`}
+            </div>
+          ) : (
+            <div className="text-sm text-slate-700">
+              {transectCount == null
+                ? '加载中…'
+                : transectCount === 0
+                  ? `${selectedTransectId} 上暂无相机`
+                  : `${selectedTransectId} 上 ${transectCount} 台相机`}
+            </div>
+          )}
+
+          <div className="text-xs text-slate-500 mt-2">
+            点击地图上的 📷 图标查看相机详情
+          </div>
+        </>
+      )}
+    </div>
   );
 }

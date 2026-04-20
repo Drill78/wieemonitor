@@ -1,17 +1,14 @@
 /**
- * 首页：全屏地图 + 右侧 Sidebar + 详情 Modal。
+ * 首页：全屏地图 + 右侧 Sidebar + 详情 Modal（样线/相机）。
  *
  * 状态：
- *   - selectedReserve：当前选中的保护区
- *   - transectsOfReserve：该保护区的样线列表（reserve 变化时重新拉）
- *   - selectedTransect：当前在地图上高亮 + Sidebar 高亮的样线
- *   - detailTransect：详情 Modal 当前展示的样线
+ *   - selectedReserve / transectsOfReserve / selectedTransect
+ *   - camerasOfTransect / selectedCamera（相机由"选中样线"派生）
+ *   - detailTransect / detailCamera（两个独立的 Modal）
  *
- * URL 参数：?reserve=SXNR-XX&transect=ID
+ * URL 参数：?reserve=SXNR-XX&transect=ID&camera=CID
  *   挂载时如有，自动选中并清空 URL（router.replace）。
- *
- * useSearchParams 要求 Suspense 包裹，所以 export default 拆成
- * Home（带 Suspense）+ HomeInner。
+ *   camera 需要等 cameras 加载完才能锁定，所以放在 transects 加载后处理。
  */
 
 'use client';
@@ -22,11 +19,16 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import Sidebar from '@/components/layout/Sidebar';
 import TransectDetailModal from '@/components/modules/TransectDetailModal';
+import CameraDetailModal from '@/components/modules/CameraDetailModal';
 import { reserves } from '@/data/mock/reserves';
 import { getTransectsByReserve } from '@/lib/transects';
-import type { Reserve, TransectManifestEntry } from '@/types';
+import { getCamerasByTransect } from '@/lib/cameras';
+import type {
+  CameraManifestEntry,
+  Reserve,
+  TransectManifestEntry,
+} from '@/types';
 
-// Leaflet 必须在浏览器跑，这里禁用 SSR
 const MapView = dynamic(() => import('@/components/map/MapView'), {
   ssr: false,
   loading: () => (
@@ -54,10 +56,19 @@ function HomeInner() {
   >([]);
   const [selectedTransect, setSelectedTransect] =
     useState<TransectManifestEntry | null>(null);
+
+  const [camerasOfTransect, setCamerasOfTransect] = useState<
+    CameraManifestEntry[]
+  >([]);
+  const [selectedCamera, setSelectedCamera] =
+    useState<CameraManifestEntry | null>(null);
+
   const [detailTransect, setDetailTransect] =
     useState<TransectManifestEntry | null>(null);
+  const [detailCamera, setDetailCamera] =
+    useState<CameraManifestEntry | null>(null);
 
-  // 当保护区切换时，加载该保护区的所有样线
+  // 切换保护区时加载样线
   useEffect(() => {
     if (!selectedReserve) {
       setTransectsOfReserve([]);
@@ -77,15 +88,35 @@ function HomeInner() {
     };
   }, [selectedReserve]);
 
-  // === URL 参数处理：仅在初次挂载时读 ?reserve=...&transect=... ===
+  // 切换样线时加载该样线的相机
+  useEffect(() => {
+    if (!selectedTransect) {
+      setCamerasOfTransect([]);
+      return;
+    }
+    let cancelled = false;
+    getCamerasByTransect(selectedTransect.id)
+      .then((list) => {
+        if (!cancelled) setCamerasOfTransect(list);
+      })
+      .catch((e) => {
+        console.warn('[page] cameras 加载失败：', e);
+        if (!cancelled) setCamerasOfTransect([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedTransect]);
+
+  // === URL 参数：仅初次挂载读取 ?reserve=&transect=&camera= ===
   useEffect(() => {
     const reserveCode = searchParams.get('reserve');
     const transectId = searchParams.get('transect');
+    const cameraId = searchParams.get('camera');
     if (!reserveCode) return;
 
     const reserve = reserves.find((r) => r.code === reserveCode);
     if (!reserve) {
-      // 无效 reserve，清掉参数即可
       router.replace('/');
       return;
     }
@@ -93,30 +124,37 @@ function HomeInner() {
     setSelectedReserve(reserve);
 
     if (transectId) {
-      // 等该保护区的 transects 加载好，找到那条选中
       getTransectsByReserve(reserveCode)
         .then((list) => {
           const t = list.find((x) => x.id === transectId);
-          if (t) setSelectedTransect(t);
+          if (!t) return;
+          setSelectedTransect(t);
+
+          // camera 必须依赖于已选中的样线
+          if (cameraId) {
+            getCamerasByTransect(t.id).then((cams) => {
+              const cam = cams.find((c) => c.id === cameraId);
+              if (cam) setDetailCamera(cam);
+            });
+          }
         })
-        .catch(() => {
-          // ignore
-        });
+        .catch(() => {});
     }
 
-    // 清空 URL 参数，避免刷新重复触发
     router.replace('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleReserveClick = (r: Reserve) => {
     setSelectedReserve(r);
-    setSelectedTransect(null); // 切换保护区时清空样线
+    setSelectedTransect(null);
+    setSelectedCamera(null);
   };
 
   const handleClose = () => {
     setSelectedReserve(null);
     setSelectedTransect(null);
+    setSelectedCamera(null);
   };
 
   return (
@@ -126,11 +164,21 @@ function HomeInner() {
         selectedReserve={selectedReserve}
         transects={transectsOfReserve}
         selectedTransectId={selectedTransect?.id ?? null}
+        cameras={camerasOfTransect}
+        selectedCameraId={selectedCamera?.id ?? null}
+        onCameraClick={(c) => {
+          setSelectedCamera(c);
+          setDetailCamera(c);
+        }}
       />
       <Sidebar
         reserve={selectedReserve}
         selectedTransectId={selectedTransect?.id ?? null}
-        onTransectSelect={setSelectedTransect}
+        onTransectSelect={(t) => {
+          setSelectedTransect(t);
+          // 切换/取消样线时清空相机选择
+          setSelectedCamera(null);
+        }}
         onDetailClick={setDetailTransect}
         onClose={handleClose}
       />
@@ -138,6 +186,12 @@ function HomeInner() {
         transect={detailTransect}
         reserveColor={selectedReserve?.color}
         onClose={() => setDetailTransect(null)}
+      />
+      <CameraDetailModal
+        camera={detailCamera}
+        reserveColor={selectedReserve?.color}
+        reserveName={selectedReserve?.name ?? null}
+        onClose={() => setDetailCamera(null)}
       />
     </main>
   );

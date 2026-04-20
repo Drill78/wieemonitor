@@ -35,7 +35,7 @@
       "track_tags": "徒步",
       "creator": "_"
     },
-    "source_file": "LS-19.kml",
+    "source_file": "历山样线数据测试\\LS-19.kml",
     "geojson_path": "/data/transects/LS-19.geojson"
   },
   {
@@ -74,7 +74,7 @@
       "track_tags": "徒步",
       "creator": "_"
     },
-    "source_file": "LS-20.kml",
+    "source_file": "历山样线数据测试\\LS-20.kml",
     "geojson_path": "/data/transects/LS-20.geojson"
   },
   {
@@ -113,7 +113,7 @@
       "track_tags": "徒步",
       "creator": "zs_3410995"
     },
-    "source_file": "LS18.kml",
+    "source_file": "历山样线数据测试\\LS18.kml",
     "geojson_path": "/data/transects/LS18.geojson"
   }
 ]

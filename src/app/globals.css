@@ -64,3 +64,9 @@ body {
 .leaflet-container.low-zoom .reserve-label {
   display: none;
 }
+
+/* === 相机图标（divIcon）：去掉 Leaflet 默认白底 + 边框 === */
+.wiee-camera-icon {
+  background: transparent !important;
+  border: none !important;
+}

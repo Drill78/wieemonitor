@@ -1,0 +1,28 @@
+{
+  "scanned_at": "2026-04-20T08:25:07.033Z",
+  "data_root": "C:/Users/zhour/Documents/wiee",
+  "total_xlsx": 9,
+  "total_cameras": 57,
+  "by_match_type": {
+    "by_grid_id": 57,
+    "by_proximity": 0,
+    "unassigned": 0
+  },
+  "by_transect": {
+    "LS-19": 18,
+    "LS-20": 20,
+    "LS18": 19
+  },
+  "no_coord_count": 0,
+  "no_coord_items": [],
+  "errors": [],
+  "fill_rate_under_100": {
+    "interference": 0,
+    "coverage_pct": 94.7,
+    "video_duration_s": 96.5,
+    "video_format": 96.5,
+    "vegetation": 96.5,
+    "dominant_species": 96.5,
+    "height_cm": 98.2
+  }
+}

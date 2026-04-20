@@ -34,8 +34,13 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import ReserveLayer from './ReserveLayer';
 import ShanxiBoundary from './ShanxiBoundary';
 import TransectsLayer from './TransectsLayer';
+import CameraLayer from './CameraLayer';
 import { reserves } from '@/data/mock/reserves';
-import type { Reserve, TransectManifestEntry } from '@/types';
+import type {
+  CameraManifestEntry,
+  Reserve,
+  TransectManifestEntry,
+} from '@/types';
 
 const TRANSECT_COLOR = '#dc2626'; // red-600
 
@@ -51,6 +56,9 @@ interface MapViewProps {
   selectedReserve: Reserve | null;
   transects: TransectManifestEntry[];
   selectedTransectId: string | null;
+  cameras: CameraManifestEntry[];
+  selectedCameraId: string | null;
+  onCameraClick: (camera: CameraManifestEntry) => void;
 }
 
 // 山西省中心略偏北
@@ -62,6 +70,9 @@ export default function MapView({
   selectedReserve,
   transects,
   selectedTransectId,
+  cameras,
+  selectedCameraId,
+  onCameraClick,
 }: MapViewProps) {
   const mapRef = useRef<LeafletMap | null>(null);
 
@@ -130,6 +141,13 @@ export default function MapView({
         transects={transects}
         selectedTransectId={selectedTransectId}
         color={TRANSECT_COLOR}
+      />
+
+      {/* 当前样线下所有相机点位。最上层，确保压在轨迹之上 */}
+      <CameraLayer
+        cameras={cameras}
+        selectedCameraId={selectedCameraId}
+        onCameraClick={onCameraClick}
       />
     </MapContainer>
   );

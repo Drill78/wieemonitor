@@ -7,6 +7,7 @@
 
 // 各模块的类型定义集中在子模块，这里 re-export 方便统一引用
 export * from './transect';
+export * from './camera';
 
 /**
  * 保护区。对应 docs/DATA_MODEL.md → shared.reserves 表。

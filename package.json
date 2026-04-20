@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "fetch:reserves": "node scripts/fetch-reserves.mjs",
-    "scan:transects": "node --env-file=.env.local scripts/scan-transects.mjs"
+    "scan:transects": "node --env-file=.env.local scripts/scan-transects.mjs",
+    "scan:cameras": "node --env-file=.env.local scripts/scan-cameras.mjs"
   },
   "dependencies": {
     "@tmcw/togeojson": "^7.1.2",
@@ -24,7 +25,8 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-leaflet": "^5.0.0",
-    "recharts": "^3.8.1"
+    "recharts": "^3.8.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
