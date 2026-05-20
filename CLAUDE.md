@@ -65,7 +65,7 @@
 | UI 库 | **React 18** |
 | 样式 | **Tailwind CSS** |
 | 地图组件 | **react-leaflet + leaflet** |
-| 底图 tile | **OpenStreetMap**（WGS84 兼容） |
+| 底图 tile | **天地图**（CGCS2000，国内稳定）+ OSM / Esri / OpenTopoMap（备用） |
 | 数据库 | **PostgreSQL + PostGIS** （阶段 3 引入） |
 | ORM | **Prisma 或 drizzle**（阶段 3 决定，倾向 Prisma） |
 | 包管理器 | **npm** |
